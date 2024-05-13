@@ -1,3 +1,6 @@
-﻿  main.cpp
+﻿  Enemy.cpp
+  GameManager.cpp
+  main.cpp
 C:\Users\claire.benes\Documents\Benes Claire\Raylib-TowerDefence2D\main.cpp(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  Generating Code...
   Raylib Starter Project.vcxproj -> C:\Users\claire.benes\Documents\Benes Claire\Raylib-TowerDefence2D\x64\Debug\Raylib TowerDefence2D.exe

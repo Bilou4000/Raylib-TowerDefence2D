@@ -13,15 +13,11 @@ Music startMusic;
 Music mainMusic;
 Music endMusic;
 
-Texture2D firstCarTexture;
-Texture2D secondCarTexture;
-
 //Variable
 int screenWidth = 1280;
 int screenHeight = 720;
 
 bool ending = false;
-float gameTime = 0;
 
 //Function
 void Load();
@@ -47,7 +43,7 @@ int main() {
 
 void Load()
 {
-    InitWindow(screenWidth, screenHeight, "Racing Car");
+    InitWindow(screenWidth, screenHeight, "Tower Defence 2D");
     currentScreen = MENU;
     SetTargetFPS(60);
 
@@ -57,9 +53,6 @@ void Load()
     startMusic = LoadMusicStream("resources/ForzaHorizon.mp3");
     mainMusic = LoadMusicStream("resources/Odesza.mp3");
     endMusic = LoadMusicStream("resources/Pyre.mp3");
-
-    firstCarTexture = LoadTexture("resources/car_green_3.png");
-    secondCarTexture = LoadTexture("resources/car_red_5.png");
 }
 
 void Update()
@@ -103,7 +96,6 @@ void Update()
             //UpdateMusicStream(mainMusic);
 
             ending = gameManager.Update(deltaTime);
-            gameTime = gameManager.GetTimer();
 
             if (ending)
             {
@@ -117,8 +109,6 @@ void Update()
 
             //PlayMusicStream(endMusic);
             //UpdateMusicStream(endMusic);
-
-            gameManager.ResetTimer();
 
             if (IsKeyPressed(KEY_R))
             {
@@ -165,10 +155,6 @@ void Draw()
         case ENDING:
         {
             DrawText("Race Finished !", (GetScreenWidth() / 2) - (MeasureText("Race Finished !", 150) / 2), 100, 150, RED);
-
-            DrawText("TIME", (GetScreenWidth() / 2) - (MeasureText("TIME", 100) / 2), 300, 100, ORANGE);
-            DrawText(TextFormat("%.2fs", gameTime), (GetScreenWidth() / 2) - (MeasureText(TextFormat("%.2fs", gameTime), 75) / 2), 400, 75, BLACK);
-
 
             DrawText("Press R to PLAY AGAIN", (GetScreenWidth() / 2) - (MeasureText("Press R to PLAY AGAIN", 40) / 2), 530, 40, GRAY);
             DrawText("Or Press M to go back to MENU", (GetScreenWidth() / 2) - (MeasureText("Or Press M to go back to MENU", 40) / 2), 620, 40, GRAY);

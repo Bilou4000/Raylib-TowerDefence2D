@@ -10,20 +10,7 @@ public:
 	bool Update(float deltaTime);
 	void Draw();
 
-	//bool StartRace();
-	//void DrawStartRace();
-
-	float GetTimer();
-	void ResetTimer();
-
 private:
 	Environment environment {};
-
-	const int mMaxCountdown = 5;
-	const float mTimeOfCountdown = 1.8f;
-
-
-	float mTimer = 0;
-	int mCountdown = mMaxCountdown;
 };
 
