@@ -10,12 +10,12 @@ Environment::Environment()
 	//road
 	TileData& tileRoad = mTilesData[(int) TilesType::ROAD];
 	tileRoad.mColor = WHITE;
+	tileRoad.mIsRoad = true;
 
 	//tower
 	TileData& tileTower = mTilesData[(int) TilesType::TOWER];
 	//tileTower.mColor = { 220, 220, 220, 255 };
 	tileTower.mColor = BLUE;
-	tileTower.mIsTower = true;
 
 	//spawn
 	TileData& tileSpawn = mTilesData[(int) TilesType::SPAWN];

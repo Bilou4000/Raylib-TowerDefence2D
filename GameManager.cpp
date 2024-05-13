@@ -5,16 +5,25 @@
 void GameManager::Init()
 {
 	//initialize environment
-    environment.Init();
+    mEnvironment.Init();
+	mEnemy.Init();
 }
 
 bool GameManager::Update(float deltaTime)
 {
+	mEnemy.Update(deltaTime);
+
+	if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) 
+	{
+		printf("%d, %d\n", GetMouseX(), GetMouseY());
+	}
+
 	return false;
 }
 
 void GameManager::Draw()
 {
 	//Draw Environment (tiles)
-	environment.Draw();
+	mEnvironment.Draw();
+	mEnemy.Draw();
 }

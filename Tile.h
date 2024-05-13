@@ -18,6 +18,6 @@ struct TileData
 	TilesType mTileType = TilesType::GRASS;
 	Color mColor = LIME;
 	Texture2D ImageTexture;
-	bool mIsTower = false;
+	bool mIsRoad = false;
 };
 
