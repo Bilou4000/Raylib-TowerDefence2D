@@ -72,12 +72,12 @@ void Update()
         {
             StopMusicStream(endMusic);
 
-            PlayMusicStream(startMusic);
-            UpdateMusicStream(startMusic);
+            //PlayMusicStream(startMusic);
+            //UpdateMusicStream(startMusic);
 
             if (IsKeyPressed(KEY_ENTER))
             {
-                currentScreen = STARTOFGAMEPLAY;
+                currentScreen = GAMEPLAY;
             }
         }
         break;
@@ -86,21 +86,21 @@ void Update()
             StopMusicStream(startMusic);
             StopMusicStream(endMusic);
 
-            PlayMusicStream(mainMusic);
-            UpdateMusicStream(mainMusic);
+            //PlayMusicStream(mainMusic);
+            //UpdateMusicStream(mainMusic);
 
-            gameManager.StartRace();
+            //gameManager.StartRace();
 
-            if (gameManager.StartRace())
-            {
-                currentScreen = GAMEPLAY;
-            }
+            //if (gameManager.StartRace())
+            //{
+            //    currentScreen = GAMEPLAY;
+            //}
         }
         break;
         case GAMEPLAY:
         {
-            PlayMusicStream(mainMusic);
-            UpdateMusicStream(mainMusic);
+            //PlayMusicStream(mainMusic);
+            //UpdateMusicStream(mainMusic);
 
             ending = gameManager.Update(deltaTime);
             gameTime = gameManager.GetTimer();
@@ -115,8 +115,8 @@ void Update()
         {
             StopMusicStream(mainMusic);
 
-            PlayMusicStream(endMusic);
-            UpdateMusicStream(endMusic);
+            //PlayMusicStream(endMusic);
+            //UpdateMusicStream(endMusic);
 
             gameManager.ResetTimer();
 
@@ -144,17 +144,17 @@ void Draw()
     {
         case MENU:
         {
-            DrawText("Car Game 2D", (GetScreenWidth() / 2) - (MeasureText("Car Game 2D", 100) / 2), GetScreenHeight() / 3, 100, RED);
+            DrawText("Tower Defence 2D", (GetScreenWidth() / 2) - (MeasureText("Tower Defence 2D", 100) / 2), GetScreenHeight() / 3, 100, RED);
             DrawText("Press ENTER to PLAY", (GetScreenWidth() / 2) - (MeasureText("Press ENTER to PLAY", 50) / 2), 400, 50, GRAY);
 
-            DrawTextureEx(firstCarTexture, { 200, 100 }, 45, 2, WHITE);
-            DrawTextureEx(secondCarTexture, { 1000, 400 }, -20, 1.5f, WHITE);
+            //DrawTextureEx(firstCarTexture, { 200, 100 }, 45, 2, WHITE);
+            //DrawTextureEx(secondCarTexture, { 1000, 400 }, -20, 1.5f, WHITE);
         }
         break;
         case STARTOFGAMEPLAY:
         {
-            gameManager.Draw();
-            gameManager.DrawStartRace();
+            //gameManager.Draw();
+            //gameManager.DrawStartRace();
         }
         break;
         case GAMEPLAY:

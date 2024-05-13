@@ -134,13 +134,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Car.cpp" />
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Car.h" />
     <ClInclude Include="Environment.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="Tile.h" />
