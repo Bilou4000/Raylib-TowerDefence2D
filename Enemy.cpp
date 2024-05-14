@@ -5,7 +5,7 @@
 #include <iostream>
 #include <cmath>
 
-Enemy::Enemy(Environment& environment, std::vector<Vector2> path)
+Enemy::Enemy(Environment& environment, std::vector<Vector2> path, float x, float y)
 			: mEnvironment(environment), mPath(path)
 {
 	mTexture = LoadTexture("resources/towerDefense_tile247.png");
@@ -13,8 +13,8 @@ Enemy::Enemy(Environment& environment, std::vector<Vector2> path)
 	//initialze all variable
 	mIsAtCastle = false;
 	mAngle = 0;
-	mX = 50;
-	mY = 150;
+	mX = x;
+	mY = y;
 }
 
 void Enemy::Update(float deltaTime)

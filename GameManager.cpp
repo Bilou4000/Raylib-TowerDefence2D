@@ -9,8 +9,6 @@ void GameManager::Init()
 	//initialize environment
     mEnvironment.Init();
 
-	mAllEnemies.emplace_back(mEnvironment, mMainPath);
-
 	mPosTurret = LoadTexture("resources/towerDefense_tile108.png");
 }
 
@@ -27,6 +25,8 @@ bool GameManager::Update(float deltaTime)
 	{
 		enemy.Update(deltaTime);
 	}
+
+	mSpawner.Update(deltaTime);
 
 	//create new turret
 	int mouseX = floorf(GetMouseX() / mEnvironment.mTileSize);
@@ -88,6 +88,11 @@ void GameManager::Draw()
 	{
 		turret.Draw();
 	}
+}
+
+void GameManager::SpawnEnemy(float x, float y)
+{
+	mAllEnemies.emplace_back(mEnvironment, mMainPath, x, y);
 }
 
 std::vector<Enemy>& GameManager::GetAllEnemies()

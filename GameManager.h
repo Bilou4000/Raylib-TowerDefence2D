@@ -2,7 +2,7 @@
 
 #include "raylib.h"
 #include "Turret.h"
-//************** will have to change for spwaner ; taking care of all enemies
+#include "Spawner.h"
 
 class GameManager
 {
@@ -11,11 +11,14 @@ public:
 	bool Update(float deltaTime);
 	void Draw();
 
+	void SpawnEnemy(float x, float y);
+
 	std::vector<Enemy>& GetAllEnemies();
 
 private:
 	Texture2D mPosTurret;
 	Environment mEnvironment {};
+	Spawner mSpawner{this, 50, 150 };
 
 	std::vector<Turret> mAllTurrets{};
 	std::vector<Enemy> mAllEnemies{};

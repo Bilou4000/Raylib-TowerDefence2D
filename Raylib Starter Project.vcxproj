@@ -138,12 +138,14 @@
     <ClCompile Include="Environment.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Turret.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Environment.h" />
     <ClInclude Include="GameManager.h" />
+    <ClInclude Include="Spawner.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="Turret.h" />
   </ItemGroup>
