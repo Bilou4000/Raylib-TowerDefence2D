@@ -1,5 +1,8 @@
 ﻿  GameManager.cpp
-  main.cpp
-C:\Users\claire.benes\Documents\Benes Claire\Raylib-TowerDefence2D\main.cpp(4,10): warning C4067: unexpected tokens following preprocessor directive - expected a newline
-  Generating Code...
+C:\Users\claire.benes\Documents\Benes Claire\Raylib-TowerDefence2D\GameManager.cpp(22,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\claire.benes\Documents\Benes Claire\Raylib-TowerDefence2D\GameManager.cpp(23,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\claire.benes\Documents\Benes Claire\Raylib-TowerDefence2D\GameManager.cpp(31,55): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\claire.benes\Documents\Benes Claire\Raylib-TowerDefence2D\GameManager.cpp(31,42): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+C:\Users\claire.benes\Documents\Benes Claire\Raylib-TowerDefence2D\GameManager.cpp(44,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+C:\Users\claire.benes\Documents\Benes Claire\Raylib-TowerDefence2D\GameManager.cpp(45,13): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   Raylib Starter Project.vcxproj -> C:\Users\claire.benes\Documents\Benes Claire\Raylib-TowerDefence2D\x64\Debug\Raylib TowerDefence2D.exe

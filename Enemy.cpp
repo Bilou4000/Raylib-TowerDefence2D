@@ -31,8 +31,19 @@ void Enemy::Update(float deltaTime)
 	mAngle = atan2(nextPos.y - mY, nextPos.x - mX);
 
 	//move Forward
-	float x = mX + cos(mAngle) * (mSpeed * deltaTime);
-	float y = mY + sin(mAngle) * (mSpeed * deltaTime);
+	float x;
+	float y;
+
+	if (mPathIndex >= mPath.size() - 1)
+	{
+		x = mX;
+		y = mY;
+	}
+	else
+	{
+		x = mX + cos(mAngle) * ( mSpeed * deltaTime );
+		y = mY + sin(mAngle) * ( mSpeed * deltaTime );
+	}
 
 	//new Pos of enemy
 	mX = x;
