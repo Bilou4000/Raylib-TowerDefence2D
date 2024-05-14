@@ -16,10 +16,10 @@ public:
 	void Draw();
 	void FindEnemy();
 
-private:
 	float mX;
 	float mY;
 
+private:
 	float mRange = 200;
 	float mAngle = 0;
 

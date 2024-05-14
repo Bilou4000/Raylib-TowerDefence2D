@@ -9,8 +9,8 @@
 Turret::Turret(GameManager* gameManager, float x, float y)
 	: mGameManager(gameManager)
 {
-	mX = floorf(x / mEnvironment.mTileSize) * mEnvironment.mTileSize;
-	mY = floorf(y / mEnvironment.mTileSize) * mEnvironment.mTileSize;
+	mX = x;
+	mY = y;
 
 	mTexture = LoadTexture("resources/towerDefense_tile249.png");
 }

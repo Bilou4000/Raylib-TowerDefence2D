@@ -38,7 +38,24 @@ bool GameManager::Update(float deltaTime)
 	{
 		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 		{
-			mAllTurrets.emplace_back(this, GetMouseX(), GetMouseY());
+			float x = floorf(GetMouseX() / mEnvironment.mTileSize) * mEnvironment.mTileSize;
+			float y = floorf(GetMouseY() / mEnvironment.mTileSize) * mEnvironment.mTileSize;
+
+			bool canPlaceTurret = true;
+
+			for (Turret& turret : mAllTurrets)
+			{
+				if (turret.mX == x && turret.mY == y)
+				{
+					canPlaceTurret = false;
+					break;
+				}
+			}
+
+			if (canPlaceTurret)
+			{
+				mAllTurrets.emplace_back(this, x, y);
+			}
 		}
 	}
 
