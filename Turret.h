@@ -5,6 +5,8 @@
 #include "Environment.h"
 #include "Enemy.h"
 
+#include <memory>
+
 class GameManager;
 
 class Turret
@@ -28,7 +30,7 @@ private:
 
 	Texture2D mTexture;
 	Environment mEnvironment{};
-	Enemy* mEnemy = nullptr;
+	std::weak_ptr<Enemy> mEnemy;
 
 	GameManager* mGameManager;
 };

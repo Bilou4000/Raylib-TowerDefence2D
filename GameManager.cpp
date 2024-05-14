@@ -21,9 +21,9 @@ bool GameManager::Update(float deltaTime)
 	}
 
 	//enemies update
-	for (Enemy& enemy : mAllEnemies)
+	for (std::shared_ptr<Enemy>& enemy : mAllEnemies)
 	{
-		enemy.Update(deltaTime);
+		enemy->Update(deltaTime);
 	}
 
 	//bullets update
@@ -84,9 +84,9 @@ void GameManager::Draw()
 	}
 
 	//Draw Enemies
-	for (Enemy& enemy : mAllEnemies)
+	for (std::shared_ptr<Enemy> enemy : mAllEnemies)
 	{
-		enemy.Draw();
+		enemy->Draw();
 	}
 
 	//Draw all turrets
@@ -104,7 +104,9 @@ void GameManager::Draw()
 
 void GameManager::SpawnEnemy(float x, float y)
 {
-	mAllEnemies.emplace_back(mEnvironment, mMainPath, x, y);
+	mAllEnemies.push_back(std::make_shared<Enemy>(mEnvironment, mMainPath, x, y));
+
+	//mAllEnemies.emplace_back(mEnvironment, mMainPath, x, y);
 }
 
 void GameManager::SpawnBullet(float x, float y, float angle)
@@ -112,7 +114,7 @@ void GameManager::SpawnBullet(float x, float y, float angle)
 	mAllBullets.emplace_back(x, y, angle);
 }
 
-std::vector<Enemy>& GameManager::GetAllEnemies()
+std::vector<std::shared_ptr<Enemy>>& GameManager::GetAllEnemies()
 {
 	return mAllEnemies;
 }

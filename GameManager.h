@@ -5,6 +5,8 @@
 #include "Spawner.h"
 #include "Bullet.h"
 
+#include <memory>
+
 class GameManager
 {
 public:
@@ -15,7 +17,7 @@ public:
 	void SpawnEnemy(float x, float y);
 	void SpawnBullet(float x, float y, float angle);
 
-	std::vector<Enemy>& GetAllEnemies();
+	std::vector<std::shared_ptr<Enemy>>& GetAllEnemies();
 
 private:
 	Texture2D mPosTurret;
@@ -24,7 +26,7 @@ private:
 
 	std::vector<Bullet> mAllBullets{};
 	std::vector<Turret> mAllTurrets{};
-	std::vector<Enemy> mAllEnemies{};
+	std::vector<std::shared_ptr<Enemy>> mAllEnemies{};
 
 	std::vector<Vector2> mMainPath {
 		{ 200, 154 },

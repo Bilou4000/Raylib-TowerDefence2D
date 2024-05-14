@@ -17,14 +17,16 @@ Turret::Turret(GameManager* gameManager, float x, float y)
 
 void Turret::Update(float deltaTime)
 {
-	if (mEnemy == nullptr || Vector2Distance({ mEnemy->mX, mEnemy->mY }, { mX + mEnvironment.mTileSize / 2, mY + mEnvironment.mTileSize / 2 }) > mRange)
+	std::shared_ptr<Enemy> enemy = mEnemy.lock();
+
+	if (enemy == nullptr || Vector2Distance({ enemy->mX, enemy->mY }, { mX + mEnvironment.mTileSize / 2, mY + mEnvironment.mTileSize / 2 }) > mRange)
 	{
 		FindEnemy();
 	}
 
-	if (mEnemy != nullptr)
+	if (enemy != nullptr)
 	{
-		mAngle = atan2(mEnemy->mY - (mY + mEnvironment.mTileSize / 2), mEnemy->mX - (mX + mEnvironment.mTileSize / 2));
+		mAngle = atan2(enemy->mY - (mY + mEnvironment.mTileSize / 2), enemy->mX - (mX + mEnvironment.mTileSize / 2));
 
 		mCurrentFireTime -= deltaTime;
 		if (mCurrentFireTime <= 0)
@@ -34,8 +36,6 @@ void Turret::Update(float deltaTime)
 			mCurrentFireTime += 1 / mFireRate;
 		}
 	}
-
-
 }
 
 void Turret::Draw()
@@ -52,15 +52,15 @@ void Turret::Draw()
 
 void Turret::FindEnemy()
 {
-	std::vector<Enemy>& allEnemies = mGameManager->GetAllEnemies();
+	std::vector<std::shared_ptr<Enemy>>& allEnemies = mGameManager->GetAllEnemies();
 
-	mEnemy = nullptr;
+	mEnemy.reset();
 
-	for (Enemy enemy : allEnemies)
+	for (std::shared_ptr<Enemy> enemy : allEnemies)
 	{
-		if (Vector2Distance({ enemy.mX, enemy.mY }, { mX + mEnvironment.mTileSize / 2, mY + mEnvironment.mTileSize / 2 }) < mRange)
+		if (Vector2Distance({ enemy->mX, enemy->mY }, { mX + mEnvironment.mTileSize / 2, mY + mEnvironment.mTileSize / 2 }) < mRange)
 		{
-			mEnemy = &enemy;
+			mEnemy = enemy;
 			return;
 		}
 	}
