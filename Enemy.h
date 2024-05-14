@@ -8,7 +8,6 @@ class Enemy
 public:
 	Enemy(Environment& environment, std::vector<Vector2> path);
 
-	void Init();
 	void Update(float deltaTime);
 	void Draw();
 

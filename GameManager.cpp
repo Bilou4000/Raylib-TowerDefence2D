@@ -8,15 +8,25 @@ void GameManager::Init()
 {
 	//initialize environment
     mEnvironment.Init();
-	mEnemy.Init();
+
+	mAllEnemies.emplace_back(mEnvironment, mMainPath);
 
 	mPosTurret = LoadTexture("resources/towerDefense_tile108.png");
-	mTurretIndex = 0;
 }
 
 bool GameManager::Update(float deltaTime)
 {
-	mEnemy.Update(deltaTime);
+	//update turrets
+	for (Turret& turret : mAllTurrets)
+	{
+		turret.Update(deltaTime);
+	}
+
+	//enemies update
+	for (Enemy& enemy : mAllEnemies)
+	{
+		enemy.Update(deltaTime);
+	}
 
 	//create new turret
 	int mouseX = floorf(GetMouseX() / mEnvironment.mTileSize);
@@ -28,7 +38,7 @@ bool GameManager::Update(float deltaTime)
 	{
 		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 		{
-			mAllTurrets.push_back(Turret(GetMouseX(), GetMouseY()));
+			mAllTurrets.emplace_back(this, GetMouseX(), GetMouseY());
 		}
 	}
 
@@ -37,7 +47,6 @@ bool GameManager::Update(float deltaTime)
 
 void GameManager::Draw()
 {
-
 	//Draw Environment (tiles)
 	mEnvironment.Draw();
 
@@ -52,14 +61,19 @@ void GameManager::Draw()
 	}
 
 	//Draw Enemies
-	mEnemy.Draw();
+	for (Enemy& enemy : mAllEnemies)
+	{
+		enemy.Draw();
+	}
 
 	//Draw all turrets
-	if (!mAllTurrets.empty())
+	for (Turret& turret : mAllTurrets)
 	{
-		for (int turret = 0; turret < mAllTurrets.size(); turret++)
-		{
-			mAllTurrets[turret].Draw();
-		}
+		turret.Draw();
 	}
+}
+
+std::vector<Enemy>& GameManager::GetAllEnemies()
+{
+	return mAllEnemies;
 }

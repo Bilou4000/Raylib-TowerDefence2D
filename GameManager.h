@@ -3,7 +3,6 @@
 #include "raylib.h"
 #include "Turret.h"
 //************** will have to change for spwaner ; taking care of all enemies
-#include "Enemy.h"
 
 class GameManager
 {
@@ -12,12 +11,14 @@ public:
 	bool Update(float deltaTime);
 	void Draw();
 
+	std::vector<Enemy>& GetAllEnemies();
+
 private:
 	Texture2D mPosTurret;
 	Environment mEnvironment {};
 
 	std::vector<Turret> mAllTurrets{};
-	int mTurretIndex;
+	std::vector<Enemy> mAllEnemies{};
 
 	std::vector<Vector2> mMainPath {
 		{ 200, 154 },
@@ -33,7 +34,5 @@ private:
 		{ 1227, 604 },
 		{ 1270, 604 },
 	};
-
-	Enemy mEnemy{ mEnvironment, mMainPath };
 };
 

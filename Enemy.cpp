@@ -8,11 +8,6 @@
 Enemy::Enemy(Environment& environment, std::vector<Vector2> path)
 			: mEnvironment(environment), mPath(path)
 {
-
-}
-
-void Enemy::Init()
-{
 	mTexture = LoadTexture("resources/towerDefense_tile247.png");
 
 	//initialze all variable

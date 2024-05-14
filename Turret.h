@@ -3,19 +3,30 @@
 #include "raylib.h"
 
 #include "Environment.h"
+#include "Enemy.h"
+
+class GameManager;
 
 class Turret
 {
 public:
-	Turret(float x, float y);
+	Turret(GameManager* gameManager, float x, float y);
 
-	void Update();
+	void Update(float deltaTime);
 	void Draw();
+	void FindEnemy();
+
 private:
 	float mX;
 	float mY;
 
+	float mRange = 200;
+	float mAngle = 0;
+
 	Texture2D mTexture;
 	Environment mEnvironment{};
+	Enemy* mEnemy = nullptr;
+
+	GameManager* mGameManager;
 };
 
