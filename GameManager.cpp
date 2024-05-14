@@ -18,6 +18,13 @@ bool GameManager::Update(float deltaTime)
 		printf("%d, %d\n", GetMouseX(), GetMouseY());
 	}
 
+	const TileData* tiledata = mEnvironment.GetTileDataAtPos(GetMouseX(), GetMouseY());
+
+	if (tiledata->mTileType == TilesType::GRASS)
+	{
+		//tiledata->mColor = DARKGREEN;
+	}
+
 	return false;
 }
 
