@@ -5,7 +5,7 @@
 class Bullet
 {
 public:
-	Bullet(float x, float y);
+	Bullet(float x, float y, float angle);
 
 	void Update(float deltaTime);
 	void Draw();
@@ -15,5 +15,8 @@ public:
 
 private:
 	Texture2D mTexture;
+
+	float mAngle = 3023023;
+	float mSpeed = 400.0f;
 };
 

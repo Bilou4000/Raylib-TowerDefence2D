@@ -26,6 +26,12 @@ bool GameManager::Update(float deltaTime)
 		enemy.Update(deltaTime);
 	}
 
+	//bullets update
+	for (Bullet& bullet : mAllBullets)
+	{
+		bullet.Update(deltaTime);
+	}
+
 	mSpawner.Update(deltaTime);
 
 	//create new turret
@@ -88,11 +94,22 @@ void GameManager::Draw()
 	{
 		turret.Draw();
 	}
+
+	//Draw all bullets
+	for (Bullet& bullet : mAllBullets)
+	{
+		bullet.Draw();
+	}
 }
 
 void GameManager::SpawnEnemy(float x, float y)
 {
 	mAllEnemies.emplace_back(mEnvironment, mMainPath, x, y);
+}
+
+void GameManager::SpawnBullet(float x, float y, float angle)
+{
+	mAllBullets.emplace_back(x, y, angle);
 }
 
 std::vector<Enemy>& GameManager::GetAllEnemies()

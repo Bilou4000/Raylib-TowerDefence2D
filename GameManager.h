@@ -3,6 +3,7 @@
 #include "raylib.h"
 #include "Turret.h"
 #include "Spawner.h"
+#include "Bullet.h"
 
 class GameManager
 {
@@ -12,6 +13,7 @@ public:
 	void Draw();
 
 	void SpawnEnemy(float x, float y);
+	void SpawnBullet(float x, float y, float angle);
 
 	std::vector<Enemy>& GetAllEnemies();
 
@@ -20,6 +22,7 @@ private:
 	Environment mEnvironment {};
 	Spawner mSpawner{this, 50, 150 };
 
+	std::vector<Bullet> mAllBullets{};
 	std::vector<Turret> mAllTurrets{};
 	std::vector<Enemy> mAllEnemies{};
 

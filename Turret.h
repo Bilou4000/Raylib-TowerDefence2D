@@ -20,6 +20,9 @@ public:
 	float mY;
 
 private:
+	const float mFireRate = 1;
+	float mCurrentFireTime = 1/mFireRate;
+
 	float mRange = 200;
 	float mAngle = 0;
 

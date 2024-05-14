@@ -25,14 +25,23 @@ void Turret::Update(float deltaTime)
 	if (mEnemy != nullptr)
 	{
 		mAngle = atan2(mEnemy->mY - (mY + mEnvironment.mTileSize / 2), mEnemy->mX - (mX + mEnvironment.mTileSize / 2));
+
+		mCurrentFireTime -= deltaTime;
+		if (mCurrentFireTime <= 0)
+		{
+			mGameManager->SpawnBullet(mX + mEnvironment.mTileSize / 2, mY + mEnvironment.mTileSize / 2, mAngle);
+
+			mCurrentFireTime += 1 / mFireRate;
+		}
 	}
+
+
 }
 
 void Turret::Draw()
 {
 	Rectangle source{ 0, 0, mTexture.width, mTexture.height };
 	Rectangle dest{ mX + mEnvironment.mTileSize / 2, mY + mEnvironment.mTileSize / 2, mTexture.width / 2.0f, mTexture.height / 2.0f };
-
 	Vector2 origin{ dest.width / 2, dest.height / 2 };
 
 	DrawTexturePro(mTexture, source, dest, origin, mAngle * RAD2DEG, WHITE);
