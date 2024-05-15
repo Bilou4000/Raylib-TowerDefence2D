@@ -7,7 +7,7 @@ void GameManager::Init()
 	//initialize environment
     mEnvironment.Init();
 
-	mPosTurret = LoadTexture("resources/towerDefense_tile108.png");
+	mPosTurret = LoadTexture("resources/towerDefense_tile016-removebg-preview.png");
 }
 
 bool GameManager::Update(float deltaTime)
@@ -40,6 +40,18 @@ bool GameManager::Update(float deltaTime)
 	mSpawner.Update(deltaTime);
 
 	//create new turret
+	CreateNewTurret();
+
+	//destroy bullets and enemies
+	DestroyBulletAndEnemies();
+	
+
+	return false;
+}
+
+void GameManager::CreateNewTurret()
+{
+	//create new turret
 	int mouseX = floorf(GetMouseX() / mEnvironment.mTileSize);
 	int mouseY = floorf(GetMouseY() / mEnvironment.mTileSize);
 
@@ -69,14 +81,16 @@ bool GameManager::Update(float deltaTime)
 			}
 		}
 	}
+}
 
-	//destroy bullets and enemies
+void GameManager::DestroyBulletAndEnemies()
+{
 	for (int bullet = 0; bullet < mAllBullets.size(); bullet++)
 	{
 		for (int enemy = 0; enemy < mAllEnemies.size(); enemy++)
 		{
 			if (mAllEnemies[enemy] != nullptr && mAllBullets[bullet] != nullptr &&
-				CheckCollisionCircles({ mAllBullets[bullet]->mX, mAllBullets[bullet]->mY}, 8, {mAllEnemies[enemy]->mX, mAllEnemies[enemy]->mY}, 20))
+				CheckCollisionCircles({ mAllBullets[bullet]->mX, mAllBullets[bullet]->mY }, 8, { mAllEnemies[enemy]->mX, mAllEnemies[enemy]->mY }, 20))
 			{
 				//destroy bullet if it touches an enemy
 				mAllBullets[bullet].reset();
@@ -101,9 +115,7 @@ bool GameManager::Update(float deltaTime)
 			mAllBullets[bullet].reset();
 			printf("isdestroyed\n");
 		}
-	}	
-
-	return false;
+	}
 }
 
 void GameManager::Draw()
@@ -111,6 +123,36 @@ void GameManager::Draw()
 	//Draw Environment (tiles)
 	mEnvironment.Draw();
 
+	//Draw possible turret placement
+	DrawTurretPlacement();
+
+	//Draw Enemies
+	for (std::shared_ptr<Enemy>& enemy : mAllEnemies)
+	{
+		if (enemy != nullptr)
+		{
+			enemy->Draw();
+		}
+	}
+
+	//Draw all turrets
+	for (Turret& turret : mAllTurrets)
+	{
+		turret.Draw();
+	}
+
+	//Draw all bullets
+	for (std::shared_ptr<Bullet>& bullet : mAllBullets)
+	{
+		if (bullet != nullptr)
+		{
+			bullet->Draw();
+		}
+	}
+}
+
+void GameManager::DrawTurretPlacement()
+{
 	int mouseX = floorf(GetMouseX() / mEnvironment.mTileSize);
 	int mouseY = floorf(GetMouseY() / mEnvironment.mTileSize);
 
@@ -135,31 +177,7 @@ void GameManager::Draw()
 
 		if (canPlaceTurret)
 		{
-			DrawTextureEx(mPosTurret, { mouseX * mEnvironment.mTileSize, mouseY * mEnvironment.mTileSize }, 0, 0.4f, WHITE);
-		}		
-	}
-
-	//Draw Enemies
-	for (std::shared_ptr<Enemy>& enemy : mAllEnemies)
-	{
-		if (enemy != nullptr)
-		{
-			enemy->Draw();
-		}
-	}
-
-	//Draw all turrets
-	for (Turret& turret : mAllTurrets)
-	{
-		turret.Draw();
-	}
-
-	//Draw all bullets
-	for (std::shared_ptr<Bullet>& bullet : mAllBullets)
-	{
-		if (bullet != nullptr)
-		{
-			bullet->Draw();
+			DrawTextureEx(mPosTurret, { mouseX * mEnvironment.mTileSize, mouseY * mEnvironment.mTileSize }, 0, 0.4f, GREEN);
 		}
 	}
 }

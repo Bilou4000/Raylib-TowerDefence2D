@@ -5,7 +5,7 @@
 
 using namespace std;
 
-typedef enum GameScreen { MENU, STARTOFGAMEPLAY, GAMEPLAY, ENDING } GameScreen;
+typedef enum GameScreen { MENU, GAMEPLAY, ENDING } GameScreen;
 GameScreen currentScreen;
 GameManager gameManager;
 
@@ -15,7 +15,7 @@ Music endMusic;
 
 //Variable
 int screenWidth = 1280;
-int screenHeight = 720;
+int screenHeight = 850; //720
 
 bool ending = false;
 
@@ -74,22 +74,6 @@ void Update()
             }
         }
         break;
-        case STARTOFGAMEPLAY:
-        {
-            StopMusicStream(startMusic);
-            StopMusicStream(endMusic);
-
-            //PlayMusicStream(mainMusic);
-            //UpdateMusicStream(mainMusic);
-
-            //gameManager.StartRace();
-
-            //if (gameManager.StartRace())
-            //{
-            //    currentScreen = GAMEPLAY;
-            //}
-        }
-        break;
         case GAMEPLAY:
         {
             //PlayMusicStream(mainMusic);
@@ -112,7 +96,7 @@ void Update()
 
             if (IsKeyPressed(KEY_R))
             {
-                currentScreen = STARTOFGAMEPLAY;
+                currentScreen = GAMEPLAY;
             }
 
             if (IsKeyPressed(KEY_SEMICOLON))
@@ -139,12 +123,6 @@ void Draw()
 
             //DrawTextureEx(firstCarTexture, { 200, 100 }, 45, 2, WHITE);
             //DrawTextureEx(secondCarTexture, { 1000, 400 }, -20, 1.5f, WHITE);
-        }
-        break;
-        case STARTOFGAMEPLAY:
-        {
-            //gameManager.Draw();
-            //gameManager.DrawStartRace();
         }
         break;
         case GAMEPLAY:

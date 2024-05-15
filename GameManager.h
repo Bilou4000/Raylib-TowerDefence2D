@@ -15,6 +15,11 @@ public:
 	bool Update(float deltaTime);
 	void Draw();
 
+	void DrawTurretPlacement();
+
+	void CreateNewTurret();
+	void DestroyBulletAndEnemies();
+
 	void SpawnEnemy(float x, float y);
 	void SpawnBullet(float x, float y, float angle);
 
