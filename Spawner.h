@@ -8,17 +8,22 @@ public:
 	Spawner(GameManager* gameManager, float x, float y);
 
 	void Update(float deltaTime);
+	void SetEnemyKilled(int count);
 
 	float mX = 10;
 	float mY = 10;
 
+	int mEnemyKilled = 0;
+
 private:
-	const float mSpawnTime = 1.0f;
+	const float mTimeBetweenWave = 5.0f;
 
-	int mEnemyToSpawn = 5;
-	float mCurrentSpawnTime = mSpawnTime;
+	float mSpawnTime = 1.0f; //time between enemy
+	float mCurrentSpawnTime = mTimeBetweenWave;
+	int mEnemyToSpawn = 2;
+	int mEnemy = mEnemyToSpawn;
 
-	int mCurrentWave = 1;
+	int mWaveCount = 1;
 
 	GameManager* mGameManager;
 };

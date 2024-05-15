@@ -2,12 +2,10 @@
 
 #include "raylib.h"
 
-class GameManager;
-
 class Bullet
 {
 public:
-	Bullet(GameManager* gameManager, float x, float y, float angle);
+	Bullet(float x, float y, float angle);
 
 	void Update(float deltaTime);
 	void Draw();
@@ -20,7 +18,5 @@ private:
 
 	float mAngle = 3023023;
 	float mSpeed = 450.0f;
-
-	GameManager* mGameManager;
 };
 

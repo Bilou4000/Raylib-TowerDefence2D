@@ -36,6 +36,7 @@ bool GameManager::Update(float deltaTime)
 		}
 	}
 
+	//update spawner
 	mSpawner.Update(deltaTime);
 
 	//create new turret
@@ -87,6 +88,7 @@ bool GameManager::Update(float deltaTime)
 				}
 				else if (mAllEnemies[enemy]->mLives <= 0)
 				{
+					mSpawner.SetEnemyKilled(1);
 					mAllEnemies[enemy].reset();
 				}
 			}
@@ -152,7 +154,7 @@ void GameManager::SpawnEnemy(float x, float y)
 
 void GameManager::SpawnBullet(float x, float y, float angle)
 {
-	mAllBullets.push_back(std::make_shared<Bullet>(this, x, y, angle));
+	mAllBullets.push_back(std::make_shared<Bullet>(x, y, angle));
 }
 
 std::vector<std::shared_ptr<Enemy>>& GameManager::GetAllEnemies()
