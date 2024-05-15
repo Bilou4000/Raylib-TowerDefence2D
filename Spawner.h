@@ -12,10 +12,11 @@ public:
 	void NewWave();
 	void SetEnemyKilled(int count);
 
-	//int GetEnemy
 	int GetCurrentWave();
 	float GetCurrentTimeBeforeWave();
 	bool GetIfWaitingForEnemy();
+
+	void ResetSpawner();
 
 	float mX = 10;
 	float mY = 10;
@@ -25,13 +26,15 @@ public:
 private:
 	const float mTimeBetweenWave = 5.0f;
 	const float mTimeBeforeNewWave = 10.0f;
+	const float mStartWaveCount = 1;
+	const float mStartEnemyToSpawn = 1;
 
 	float mSpawnTime = 1.0f; //time between enemy
 	float mCurrentSpawnTime = mTimeBetweenWave;
-	int mEnemyToSpawn = 1;
+	int mEnemyToSpawn = mStartEnemyToSpawn;
 	int mEnemy = mEnemyToSpawn;
 
-	int mWaveCount = 1;
+	int mWaveCount = mStartWaveCount;
 	bool mIsWaitingForWave;
 
 	GameManager* mGameManager;

@@ -11,7 +11,7 @@ void GameManager::Init()
 	mCastleUp = LoadTexture("resources/medievalStructure_02.png");
 	mCastleDown = LoadTexture("resources/medievalStructure_06.png");
 
-	mCastleLife = mStartCastleLife;
+	ResetGame();
 }
 
 bool GameManager::Update(float deltaTime)
@@ -243,6 +243,18 @@ void GameManager::SpawnEnemy(float x, float y)
 void GameManager::SpawnBullet(float x, float y, float angle)
 {
 	mAllBullets.push_back(std::make_shared<Bullet>(x, y, angle));
+}
+
+void GameManager::ResetGame()
+{
+	mCastleLife = mStartCastleLife;
+	mMoney = mStartMoney;
+
+	mAllTurrets.clear();
+	mAllEnemies.clear();
+	mAllBullets.clear();
+
+	mSpawner.ResetSpawner();
 }
 
 std::vector<std::shared_ptr<Enemy>>& GameManager::GetAllEnemies()

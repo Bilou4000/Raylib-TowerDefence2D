@@ -22,7 +22,7 @@ private:
 	const float mWidth = 128;
 	const float mHeight = 128;
 
-	const float mMaxSpeed = 400.0f; //100
+	const float mMaxSpeed = 100.0f; 
 	const float mMinDistance = 5.0f;
 
 	float mSpeed = 0;

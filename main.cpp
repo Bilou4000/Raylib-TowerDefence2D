@@ -94,6 +94,8 @@ void Update()
             //PlayMusicStream(endMusic);
             //UpdateMusicStream(endMusic);
 
+            gameManager.ResetGame();
+
             if (IsKeyPressed(KEY_R))
             {
                 currentScreen = GAMEPLAY;

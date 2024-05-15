@@ -23,12 +23,15 @@ public:
 	void SpawnEnemy(float x, float y);
 	void SpawnBullet(float x, float y, float angle);
 
+	void ResetGame();
+
 	std::vector<std::shared_ptr<Enemy>>& GetAllEnemies();
 
 private:
 	const int mTurretCost = 30;
 	const int mEnemyMoney = 7;
-	const int mStartCastleLife = 1;
+	const int mStartCastleLife = 5;
+	const int mStartMoney = 60;
 
 	Texture2D mPosTurret;
 	Texture2D mCastleUp;
@@ -55,7 +58,7 @@ private:
 		{ 1270, 604 },
 	};
 
-	int mMoney = 60;
+	int mMoney = mStartMoney;
 	int mCastleLife = mStartCastleLife;
 };
 

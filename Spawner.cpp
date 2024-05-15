@@ -5,8 +5,7 @@
 Spawner::Spawner(GameManager* gameManager, float x, float y)
 	: mGameManager(gameManager), mX(x), mY(y)
 {
-	mEnemyKilled = 0;
-	mIsWaitingForWave = true;
+	ResetSpawner();
 }
 
 void Spawner::Update(float deltaTime)
@@ -66,4 +65,14 @@ float Spawner::GetCurrentTimeBeforeWave()
 bool Spawner::GetIfWaitingForEnemy()
 {
 	return mIsWaitingForWave;
+}
+
+void Spawner::ResetSpawner()
+{
+	mIsWaitingForWave = true;
+
+	mWaveCount = mStartWaveCount;
+	mEnemyToSpawn = mStartEnemyToSpawn;
+	mEnemy = mEnemyToSpawn;
+	mEnemyKilled = 0;
 }
