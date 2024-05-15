@@ -116,7 +116,7 @@ void GameManager::DestroyBulletAndEnemies()
 				{
 					mAllEnemies[enemy]->mLives--;
 				}
-				else if (mAllEnemies[enemy]->mLives <= 0)
+				if (mAllEnemies[enemy]->mLives <= 0)
 				{
 					mMoney += mEnemyMoney;
 					mSpawner.SetEnemyKilled(1);
@@ -168,6 +168,9 @@ void GameManager::Draw()
 	DrawTextureEx(mCastleDown, { 1175, 570 }, 0, 0.8f, WHITE);
 	DrawTextureEx(mCastleUp, { 1175, 470 }, 0, 0.8f, WHITE);
 
+	//Draw Castle life bar
+	DrawRectangle(1187, 480, 15 * mStartCastleLife, 10, DARKGRAY);
+	DrawRectangle(1187, 480, 15 * mCastleLife, 10, RED);
 
 	//Draw possible turret placement
 	DrawTurretPlacement();

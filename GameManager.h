@@ -29,7 +29,7 @@ public:
 
 private:
 	const int mTurretCost = 30;
-	const int mEnemyMoney = 7;
+	const int mEnemyMoney = 5;
 	const int mStartCastleLife = 5;
 	const int mStartMoney = 60;
 

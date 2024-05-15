@@ -49,7 +49,7 @@ void Turret::Draw()
 	DrawTexturePro(mTexture, source, dest, origin, mAngle * RAD2DEG, WHITE);
 
 	//debug
-	DrawCircleLines(mX + mEnvironment.mTileSize / 2, mY + mEnvironment.mTileSize / 2, mRange, RED);
+	//DrawCircleLines(mX + mEnvironment.mTileSize / 2, mY + mEnvironment.mTileSize / 2, mRange, RED);
 }
 
 //Find if enemy in range

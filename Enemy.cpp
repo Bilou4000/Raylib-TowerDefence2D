@@ -13,6 +13,7 @@ Enemy::Enemy(Environment& environment, std::vector<Vector2> path, float x, float
 	//initialze all variable
 	mIsAtCastle = false;
 	mAngle = 0;
+	mMaxLives = mLives;
 }
 
 void Enemy::Update(float deltaTime)
@@ -58,9 +59,12 @@ void Enemy::Draw()
 	Vector2 origin{ mWidth / 2, mHeight / 2 };
 
 	DrawTexturePro(mTexture, source, dest, origin, mAngle * RAD2DEG, WHITE);
+	//healthbar
+	DrawRectangle(mX - mTexture.width / 6, mY - 50, 15 * mMaxLives, 10, DARKGRAY);
+	DrawRectangle(mX - mTexture.width / 6, mY - 50, 15 * mLives, 10, RED);
 
 	//Debug
-	DrawDebug();
+	//DrawDebug();
 }
 
 void Enemy::DrawDebug()

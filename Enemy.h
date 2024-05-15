@@ -22,11 +22,12 @@ private:
 	const float mWidth = 128;
 	const float mHeight = 128;
 
-	const float mMaxSpeed = 100.0f; 
+	const float mMaxSpeed = 100.0f;
 	const float mMinDistance = 5.0f;
 
 	float mSpeed = 0;
 	float mAngle = 0;
+	float mMaxLives = 3;
 	bool mIsAtCastle = false;
 
 	Texture2D mTexture;
