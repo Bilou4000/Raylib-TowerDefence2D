@@ -6,9 +6,6 @@ enum class TilesType
 {
 	GRASS,
 	ROAD,
-	TOWER,
-	SPAWN,
-	CASTLE,
 
 	MAX_COUNT,
 };

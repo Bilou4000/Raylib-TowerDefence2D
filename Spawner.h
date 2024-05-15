@@ -28,7 +28,7 @@ private:
 
 	float mSpawnTime = 1.0f; //time between enemy
 	float mCurrentSpawnTime = mTimeBetweenWave;
-	int mEnemyToSpawn = 2;
+	int mEnemyToSpawn = 1;
 	int mEnemy = mEnemyToSpawn;
 
 	int mWaveCount = 1;

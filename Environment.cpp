@@ -12,19 +12,6 @@ Environment::Environment()
 	tileRoad.mColor = WHITE;
 	tileRoad.mIsRoad = true;
 
-	//tower
-	TileData& tileTower = mTilesData[(int) TilesType::TOWER];
-	//tileTower.mColor = { 220, 220, 220, 255 };
-	tileTower.mColor = BLUE;
-
-	//spawn
-	TileData& tileSpawn = mTilesData[(int) TilesType::SPAWN];
-	tileSpawn.mColor = { 230, 230, 230, 255 };
-
-	//castle
-	TileData& tileCastle = mTilesData[(int) TilesType::CASTLE];
-	tileCastle.mColor = WHITE;
-
 	//add all created types to mTilesData
 	for (int i = 0; i < (int) TilesType::MAX_COUNT; i++)
 	{
@@ -41,15 +28,6 @@ void Environment::Init()
 
 	TileData& tileRoad = mTilesData[(int) TilesType::ROAD];
 	tileRoad.ImageTexture = LoadTexture("resources/road/towerDefense_tile159.png");
-
-	TileData& tileTower = mTilesData[(int) TilesType::TOWER];
-	tileTower.ImageTexture = LoadTexture("resources/towerDefense_tile249.png");
-
-	TileData& tileSpawn = mTilesData[(int) TilesType::SPAWN];
-	tileSpawn.ImageTexture = LoadTexture("resources/road/towerDefense_tile159.png");
-
-	TileData& tileCastle = mTilesData[(int) TilesType::CASTLE];
-	tileCastle.ImageTexture = LoadTexture("resources/road/road_asphalt88.png");
 }
 
 void Environment::Draw()

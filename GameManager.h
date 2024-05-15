@@ -27,9 +27,7 @@ public:
 
 private:
 	const int mTurretCost = 30;
-	//const float mTimeBeforeNewWave = 10.0f;
-
-	//float mCurrentTimeBeforeNewWave = mTimeBeforeNewWave;
+	const int mEnemyMoney = 7;
 
 	Texture2D mPosTurret;
 	Environment mEnvironment {};
