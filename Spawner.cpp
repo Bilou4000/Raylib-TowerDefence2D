@@ -32,8 +32,6 @@ void Spawner::Update(float deltaTime)
 	{
 		mSpawnTime = 1.0f;
 	}
-
-	printf("%i\n", mEnemyToSpawn);
 }
 
 void Spawner::NewWave()
@@ -47,6 +45,7 @@ void Spawner::NewWave()
 	mEnemyKilled = 0;
 	mEnemyToSpawn++;
 	mEnemy = mEnemyToSpawn;
+	mGameManager->mEnemyCount = mEnemyToSpawn;
 	mGameManager->GetAllEnemies().clear();
 }
 
@@ -83,4 +82,6 @@ void Spawner::ResetSpawner()
 	mEnemyToSpawn = mStartEnemyToSpawn;
 	mEnemy = mEnemyToSpawn;
 	mEnemyKilled = 0;
+
+	mGameManager->mEnemyCount = mEnemyToSpawn;
 }

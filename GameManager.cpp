@@ -61,6 +61,8 @@ bool GameManager::Update(float deltaTime)
 		return true;
 	}
 
+	printf("%i\n", mEnemyCount);
+
 	return false;
 }
 
@@ -118,6 +120,7 @@ void GameManager::DestroyBulletAndEnemies()
 				}
 				if (mAllEnemies[enemy]->mLives <= 0)
 				{
+					mEnemyCount--;
 					mMoney += mEnemyMoney;
 					mSpawner.SetEnemyKilled(1);
 					mAllEnemies[enemy].reset();
@@ -147,11 +150,11 @@ void GameManager::Draw()
 	//draw enemies count
 	if (!mSpawner.GetIfWaitingForEnemy())
 	{
-		DrawText(TextFormat("Enemies left : %i", mSpawner.GetRemainingEnemies()),
-			GetScreenWidth() - MeasureText(TextFormat("Enemies left : %i", mSpawner.GetRemainingEnemies()), 40) - 30,
+		DrawText(TextFormat("Enemies left : %i", mEnemyCount),
+			GetScreenWidth() - MeasureText(TextFormat("Enemies left : %i", mEnemyCount), 40) - 30,
 			785, 40, RED);
 		DrawText("Enemies left :",
-			GetScreenWidth() - MeasureText(TextFormat("Enemies left : %i", mSpawner.GetRemainingEnemies()), 40) - 30,
+			GetScreenWidth() - MeasureText(TextFormat("Enemies left : %i", mEnemyCount), 40) - 30,
 			785, 40, WHITE);
 	}
 	else
@@ -260,6 +263,7 @@ void GameManager::ResetGame()
 {
 	mCastleLife = mStartCastleLife;
 	mMoney = mStartMoney;
+	mEnemyCount = 0;
 
 	mAllTurrets.clear();
 	mAllEnemies.clear();

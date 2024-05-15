@@ -26,6 +26,7 @@ public:
 	void ResetGame();
 
 	std::vector<std::shared_ptr<Enemy>>& GetAllEnemies();
+	int mEnemyCount = 0;
 
 private:
 	const int mTurretCost = 30;
