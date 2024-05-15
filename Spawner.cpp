@@ -6,6 +6,7 @@ Spawner::Spawner(GameManager* gameManager, float x, float y)
 	: mGameManager(gameManager), mX(x), mY(y)
 {
 	mEnemyKilled = 0;
+	mIsWaitingForWave = true;
 }
 
 void Spawner::Update(float deltaTime)
@@ -14,6 +15,8 @@ void Spawner::Update(float deltaTime)
 
 	if (mCurrentSpawnTime <= 0 && mEnemy > 0)
 	{
+		mIsWaitingForWave = false;
+
 		//spawn enemy
 		mGameManager->SpawnEnemy(mX, mY);
 		mEnemy--;
@@ -34,7 +37,7 @@ void Spawner::Update(float deltaTime)
 
 void Spawner::NewWave()
 {
-	//need to fix pb where it get stuck at 5 sec
+	mIsWaitingForWave = true;
 	mSpawnTime = mTimeBetweenWave;
 	mCurrentSpawnTime = mSpawnTime;
 
@@ -57,5 +60,10 @@ int Spawner::GetCurrentWave()
 
 float Spawner::GetCurrentTimeBeforeWave()
 {
-	return mCurrentTimeBeforeNewWave;
+	return mCurrentSpawnTime;
+}
+
+bool Spawner::GetIfWaitingForEnemy()
+{
+	return mIsWaitingForWave;
 }

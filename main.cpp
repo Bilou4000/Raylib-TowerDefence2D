@@ -132,7 +132,7 @@ void Draw()
         break;
         case ENDING:
         {
-            DrawText("Race Finished !", (GetScreenWidth() / 2) - (MeasureText("Race Finished !", 150) / 2), 100, 150, RED);
+            DrawText("GAME OVER", (GetScreenWidth() / 2) - (MeasureText("GAME OVER", 150) / 2), 100, 150, RED);
 
             DrawText("Press R to PLAY AGAIN", (GetScreenWidth() / 2) - (MeasureText("Press R to PLAY AGAIN", 40) / 2), 530, 40, GRAY);
             DrawText("Or Press M to go back to MENU", (GetScreenWidth() / 2) - (MeasureText("Or Press M to go back to MENU", 40) / 2), 620, 40, GRAY);

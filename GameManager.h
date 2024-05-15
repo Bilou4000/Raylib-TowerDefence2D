@@ -28,8 +28,11 @@ public:
 private:
 	const int mTurretCost = 30;
 	const int mEnemyMoney = 7;
+	const int mStartCastleLife = 1;
 
 	Texture2D mPosTurret;
+	Texture2D mCastleUp;
+	Texture2D mCastleDown;
 	Environment mEnvironment {};
 	Spawner mSpawner{this, 50, 150 };
 
@@ -53,5 +56,6 @@ private:
 	};
 
 	int mMoney = 60;
+	int mCastleLife = mStartCastleLife;
 };
 

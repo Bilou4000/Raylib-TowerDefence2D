@@ -31,6 +31,7 @@ void Enemy::Update(float deltaTime)
 	{
 		x = mX;
 		y = mY;
+		mIsAtCastle = true;
 	}
 	else
 	{
@@ -65,4 +66,9 @@ void Enemy::Draw()
 void Enemy::DrawDebug()
 {
 	DrawCircleLines(mX, mY, 20, RED);
+}
+
+bool Enemy::GetIfAtCaslte()
+{
+	return mIsAtCastle;
 }

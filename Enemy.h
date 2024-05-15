@@ -12,6 +12,7 @@ public:
 	void Draw();
 
 	void DrawDebug();
+	bool GetIfAtCaslte();
 
 	float mX = 0;
 	float mY = 0;
@@ -21,7 +22,7 @@ private:
 	const float mWidth = 128;
 	const float mHeight = 128;
 
-	const float mMaxSpeed = 100.0f;
+	const float mMaxSpeed = 400.0f; //100
 	const float mMinDistance = 5.0f;
 
 	float mSpeed = 0;

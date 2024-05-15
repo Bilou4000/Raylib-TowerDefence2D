@@ -8,6 +8,10 @@ void GameManager::Init()
     mEnvironment.Init();
 
 	mPosTurret = LoadTexture("resources/towerDefense_tile016-removebg-preview.png");
+	mCastleUp = LoadTexture("resources/medievalStructure_02.png");
+	mCastleDown = LoadTexture("resources/medievalStructure_06.png");
+
+	mCastleLife = mStartCastleLife;
 }
 
 bool GameManager::Update(float deltaTime)
@@ -24,6 +28,13 @@ bool GameManager::Update(float deltaTime)
 		if (enemy != nullptr)
 		{
 			enemy->Update(deltaTime);
+
+			if (enemy->GetIfAtCaslte())
+			{
+				mCastleLife--;
+				mSpawner.SetEnemyKilled(1);
+				enemy.reset();
+			}
 		}
 	}
 
@@ -44,7 +55,11 @@ bool GameManager::Update(float deltaTime)
 
 	//destroy bullets and enemies
 	DestroyBulletAndEnemies();
-	
+
+	if (mCastleLife <= 0)
+	{
+		return true;
+	}
 
 	return false;
 }
@@ -124,13 +139,35 @@ void GameManager::Draw()
 {
 	//Draw rectangle with all game info (wave, money etc.)
 	DrawRectangle(0, 720, GetScreenWidth(), GetScreenHeight() - 720, {113, 137, 137, 255});
+	DrawText(TextFormat("Money : %d", mMoney), 30, 785, 40, WHITE);
 	DrawText(TextFormat("WAVE : %d", mSpawner.GetCurrentWave()),
-		GetScreenWidth() / 2 - MeasureText(TextFormat("WAVE : %d", mSpawner.GetCurrentWave()), 40) / 2,
-		785, 40, WHITE);
-	DrawText(TextFormat("MONEY : %d", mMoney), 30, 785, 40, WHITE);
+		GetScreenWidth() / 2 - MeasureText(TextFormat("WAVE : %d", mSpawner.GetCurrentWave()), 50) / 2,
+		785, 50, WHITE);
+
+	//draw time before new wave
+	if (mSpawner.GetIfWaitingForEnemy())
+	{
+		DrawText(TextFormat("Next wave in : %.0f", mSpawner.GetCurrentTimeBeforeWave()),
+			GetScreenWidth() - MeasureText(TextFormat("Next wave in : %.0f", mSpawner.GetCurrentTimeBeforeWave()), 40) - 30,
+			785, 40, RED);
+		DrawText("Next wave in :",
+			GetScreenWidth() - MeasureText(TextFormat("Next wave in : %.0f", mSpawner.GetCurrentTimeBeforeWave()), 40) - 30,
+			785, 40, WHITE);
+	}
+	else
+	{
+		DrawText("Next wave in : 0",
+			GetScreenWidth() - MeasureText("Next wave in : 0", 40) - 30,
+			785, 40, WHITE);
+	}
 
 	//Draw Environment (tiles)
 	mEnvironment.Draw();
+
+	//Draw Castle;
+	DrawTextureEx(mCastleDown, { 1175, 570 }, 0, 0.8f, WHITE);
+	DrawTextureEx(mCastleUp, { 1175, 470 }, 0, 0.8f, WHITE);
+
 
 	//Draw possible turret placement
 	DrawTurretPlacement();
