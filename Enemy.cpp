@@ -6,7 +6,7 @@
 #include <cmath>
 
 Enemy::Enemy(Environment& environment, std::vector<Vector2> path, float x, float y, float lives)
-	: mEnvironment(environment), mPath(path), mX(x), mY(y), mLives(lives);
+	: mEnvironment(environment), mPath(path), mX(x), mY(y), mLives(lives)
 {
 	mTexture = LoadTexture("resources/towerDefense_tile247.png");
 

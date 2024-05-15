@@ -2,8 +2,6 @@
 
 #include <iostream>
 
-//printf("%i\n", static_cast< int >( tiledata->mTileType ));
-
 void GameManager::Init()
 {
 	//initialize environment
@@ -76,12 +74,21 @@ bool GameManager::Update(float deltaTime)
 	{
 		for (int enemy = 0; enemy < mAllEnemies.size(); enemy++)
 		{
-			//destroy bullet if it touches an enemy
 			if (mAllEnemies[enemy] != nullptr && mAllBullets[bullet] != nullptr &&
 				CheckCollisionCircles({ mAllBullets[bullet]->mX, mAllBullets[bullet]->mY}, 8, {mAllEnemies[enemy]->mX, mAllEnemies[enemy]->mY}, 20))
 			{
-				//mAllEnemies[enemy].reset();
+				//destroy bullet if it touches an enemy
 				mAllBullets[bullet].reset();
+
+				//damage enemy if health > 0, else if health <= 0 -> destroy enemy 
+				if (mAllEnemies[enemy]->mLives > 0)
+				{
+					mAllEnemies[enemy]->mLives--;
+				}
+				else if (mAllEnemies[enemy]->mLives <= 0)
+				{
+					mAllEnemies[enemy].reset();
+				}
 			}
 		}
 
@@ -140,7 +147,7 @@ void GameManager::Draw()
 
 void GameManager::SpawnEnemy(float x, float y)
 {
-	mAllEnemies.push_back(std::make_shared<Enemy>(mEnvironment, mMainPath, x, y));
+	mAllEnemies.push_back(std::make_shared<Enemy>(mEnvironment, mMainPath, x, y, 3));
 }
 
 void GameManager::SpawnBullet(float x, float y, float angle)
