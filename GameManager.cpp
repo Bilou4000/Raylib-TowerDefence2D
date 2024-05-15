@@ -101,8 +101,7 @@ bool GameManager::Update(float deltaTime)
 			mAllBullets[bullet].reset();
 			printf("isdestroyed\n");
 		}
-	}
-	
+	}	
 
 	return false;
 }
@@ -115,11 +114,29 @@ void GameManager::Draw()
 	int mouseX = floorf(GetMouseX() / mEnvironment.mTileSize);
 	int mouseY = floorf(GetMouseY() / mEnvironment.mTileSize);
 
+	//Draw possible turret placement
 	const TileData* tiledata = mEnvironment.GetTileDataAtPos(mouseX, mouseY);
 
 	if (tiledata != nullptr && tiledata->mTileType == TilesType::GRASS)
 	{
-		DrawTextureEx(mPosTurret, { mouseX * mEnvironment.mTileSize, mouseY * mEnvironment.mTileSize }, 0, 0.4f, WHITE);
+		float x = floorf(GetMouseX() / mEnvironment.mTileSize) * mEnvironment.mTileSize;
+		float y = floorf(GetMouseY() / mEnvironment.mTileSize) * mEnvironment.mTileSize;
+
+		bool canPlaceTurret = true;
+
+		for (Turret& turret : mAllTurrets)
+		{
+			if (turret.mX == x && turret.mY == y)
+			{
+				canPlaceTurret = false;
+				break;
+			}
+		}
+
+		if (canPlaceTurret)
+		{
+			DrawTextureEx(mPosTurret, { mouseX * mEnvironment.mTileSize, mouseY * mEnvironment.mTileSize }, 0, 0.4f, WHITE);
+		}		
 	}
 
 	//Draw Enemies
