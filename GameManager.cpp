@@ -136,9 +136,9 @@ void GameManager::Draw()
 	DrawText(TextFormat("WAVE : %d", mSpawner.GetCurrentWave()),
 		GetScreenWidth() / 2 - MeasureText(TextFormat("WAVE : %d", mSpawner.GetCurrentWave()), 40) / 2,
 		785, 40, WHITE);
-	DrawText(TextFormat("NEXT wave in : %.2f", mSpawner.GetCurrentTimeBeforeWave()),
-		GetScreenWidth() - MeasureText(TextFormat("NEXT wave in : %.2f", mSpawner.GetCurrentTimeBeforeWave()), 30) - 30,
-		785, 30, WHITE);
+	//DrawText(TextFormat("NEXT wave in : %.2f", mSpawner.GetCurrentTimeBeforeWave()),
+	//	GetScreenWidth() - MeasureText(TextFormat("NEXT wave in : %.2f", mSpawner.GetCurrentTimeBeforeWave()), 30) - 30,
+	//	785, 30, WHITE);
 	DrawText(TextFormat("MONEY : %d", mMoney), 30, 785, 40, WHITE);
 
 	//Draw Environment (tiles)
