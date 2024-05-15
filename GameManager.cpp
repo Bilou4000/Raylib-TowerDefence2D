@@ -144,20 +144,20 @@ void GameManager::Draw()
 		GetScreenWidth() / 2 - MeasureText(TextFormat("WAVE : %d", mSpawner.GetCurrentWave()), 50) / 2,
 		785, 50, WHITE);
 
-	//draw time before new wave
-	if (mSpawner.GetIfWaitingForEnemy())
+	//draw enemies count
+	if (!mSpawner.GetIfWaitingForEnemy())
 	{
-		DrawText(TextFormat("Next wave in : %.0f", mSpawner.GetCurrentTimeBeforeWave()),
-			GetScreenWidth() - MeasureText(TextFormat("Next wave in : %.0f", mSpawner.GetCurrentTimeBeforeWave()), 40) - 30,
+		DrawText(TextFormat("Enemies left : %i", mSpawner.GetRemainingEnemies()),
+			GetScreenWidth() - MeasureText(TextFormat("Enemies left : %i", mSpawner.GetRemainingEnemies()), 40) - 30,
 			785, 40, RED);
-		DrawText("Next wave in :",
-			GetScreenWidth() - MeasureText(TextFormat("Next wave in : %.0f", mSpawner.GetCurrentTimeBeforeWave()), 40) - 30,
+		DrawText("Enemies left :",
+			GetScreenWidth() - MeasureText(TextFormat("Enemies left : %i", mSpawner.GetRemainingEnemies()), 40) - 30,
 			785, 40, WHITE);
 	}
 	else
 	{
-		DrawText("Next wave in : 0",
-			GetScreenWidth() - MeasureText("Next wave in : 0", 40) - 30,
+		DrawText("Enemies left : 0",
+			GetScreenWidth() - MeasureText("Enemies left : 0", 40) - 30,
 			785, 40, WHITE);
 	}
 
@@ -197,6 +197,14 @@ void GameManager::Draw()
 		{
 			bullet->Draw();
 		}
+	}
+
+	//draw time before new wave
+	if (mSpawner.GetIfWaitingForEnemy())
+	{
+		DrawText(TextFormat("Next wave in : %.0f", mSpawner.GetCurrentTimeBeforeWave()),
+			30, 700, 30, RED);
+		DrawText("Next wave in :", 30, 700, 30, BLACK);
 	}
 }
 

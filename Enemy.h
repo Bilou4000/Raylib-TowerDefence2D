@@ -1,6 +1,10 @@
 #pragma once
 
 #include "raylib.h"
+#include "raymath.h"
+#include <iostream>
+#include <cmath>
+
 #include "Environment.h"
 
 class Enemy
@@ -16,6 +20,7 @@ public:
 
 	float mX = 0;
 	float mY = 0;
+	float mSpeed = 0;
 	int mLives = 3;
 
 private:
@@ -25,7 +30,6 @@ private:
 	const float mMaxSpeed = 100.0f;
 	const float mMinDistance = 5.0f;
 
-	float mSpeed = 0;
 	float mAngle = 0;
 	float mMaxLives = 3;
 	bool mIsAtCastle = false;

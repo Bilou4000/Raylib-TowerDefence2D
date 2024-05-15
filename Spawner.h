@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Enemy.h"
+
 class GameManager;
 
 class Spawner
@@ -12,6 +14,7 @@ public:
 	void NewWave();
 	void SetEnemyKilled(int count);
 
+	int GetRemainingEnemies();
 	int GetCurrentWave();
 	float GetCurrentTimeBeforeWave();
 	bool GetIfWaitingForEnemy();

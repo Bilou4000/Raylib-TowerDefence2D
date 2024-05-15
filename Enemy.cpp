@@ -1,10 +1,5 @@
 #include "Enemy.h"
 
-#include "raylib.h"
-#include "raymath.h"
-#include <iostream>
-#include <cmath>
-
 Enemy::Enemy(Environment& environment, std::vector<Vector2> path, float x, float y, float lives)
 	: mEnvironment(environment), mPath(path), mX(x), mY(y), mLives(lives)
 {
@@ -14,12 +9,11 @@ Enemy::Enemy(Environment& environment, std::vector<Vector2> path, float x, float
 	mIsAtCastle = false;
 	mAngle = 0;
 	mMaxLives = mLives;
+	mSpeed = mMaxSpeed;
 }
 
 void Enemy::Update(float deltaTime)
 {
-	mSpeed = mMaxSpeed;
-
 	Vector2 nextPos = mPath[mPathIndex];
 
 	mAngle = atan2(nextPos.y - mY, nextPos.x - mX);
@@ -33,6 +27,7 @@ void Enemy::Update(float deltaTime)
 		x = mX;
 		y = mY;
 		mIsAtCastle = true;
+		printf("ATTACK\n");
 	}
 	else
 	{
@@ -59,6 +54,7 @@ void Enemy::Draw()
 	Vector2 origin{ mWidth / 2, mHeight / 2 };
 
 	DrawTexturePro(mTexture, source, dest, origin, mAngle * RAD2DEG, WHITE);
+
 	//healthbar
 	DrawRectangle(mX - mTexture.width / 6, mY - 50, 15 * mMaxLives, 10, DARKGRAY);
 	DrawRectangle(mX - mTexture.width / 6, mY - 50, 15 * mLives, 10, RED);
