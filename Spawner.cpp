@@ -25,23 +25,57 @@ void Spawner::Update(float deltaTime)
 	//new wave
 	if (mEnemyKilled >= mEnemyToSpawn)
 	{
-		mSpawnTime = mTimeBetweenWave;
-		mCurrentSpawnTime = mSpawnTime;
+		//mSpawnTime = mTimeBetweenWave;
+		//mCurrentSpawnTime = mSpawnTime;
 
+		//if (mCurrentSpawnTime <= 0)
+		//{
+			NewWave();
+		//}
+	}
+	else if (mEnemyKilled < mEnemyToSpawn)
+	{
+		mSpawnTime = 1.0f;
+	}
+
+	//mCurrentTimeBeforeNewWave -= deltaTime;
+
+	//if (mCurrentTimeBeforeNewWave <= 0)
+	//{
+	//	NewWave();
+
+	//}
+}
+
+void Spawner::NewWave()
+{
+	mSpawnTime = mTimeBetweenWave;
+	mCurrentSpawnTime = mSpawnTime;
+
+	if (mCurrentSpawnTime <= 0)
+	{
 		mWaveCount++;
 
 		mEnemyKilled = 0;
 		mEnemyToSpawn++;
 		mEnemy = mEnemyToSpawn;
 
+		//mCurrentTimeBeforeNewWave += mTimeBeforeNewWave;
 	}
-	else if (mEnemyKilled < mEnemyToSpawn)
-	{
-		mSpawnTime = 1.0f;
-	}
+
 }
 
 void Spawner::SetEnemyKilled(int count)
 {
 	mEnemyKilled += count;
+}
+
+int Spawner::GetCurrentWave()
+{
+	return mWaveCount;
+}
+
+float Spawner::GetCurrentTimeBeforeWave()
+{
+	return mCurrentTimeBeforeNewWave;
 }

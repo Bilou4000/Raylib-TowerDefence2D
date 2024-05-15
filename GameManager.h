@@ -26,6 +26,11 @@ public:
 	std::vector<std::shared_ptr<Enemy>>& GetAllEnemies();
 
 private:
+	const int mTurretCost = 30;
+	//const float mTimeBeforeNewWave = 10.0f;
+
+	//float mCurrentTimeBeforeNewWave = mTimeBeforeNewWave;
+
 	Texture2D mPosTurret;
 	Environment mEnvironment {};
 	Spawner mSpawner{this, 50, 150 };
@@ -48,5 +53,7 @@ private:
 		{ 1227, 604 },
 		{ 1270, 604 },
 	};
+
+	int mMoney = 60;
 };
 

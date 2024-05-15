@@ -44,6 +44,15 @@ bool GameManager::Update(float deltaTime)
 
 	//destroy bullets and enemies
 	DestroyBulletAndEnemies();
+
+	//create new wave if time is up
+	//mCurrentTimeBeforeNewWave -= deltaTime;
+
+	//if (mCurrentTimeBeforeNewWave <= 0)
+	//{
+	//	mSpawner.NewWave();
+	//	mCurrentTimeBeforeNewWave += mTimeBeforeNewWave;
+	//}
 	
 
 	return false;
@@ -75,9 +84,10 @@ void GameManager::CreateNewTurret()
 				}
 			}
 
-			if (canPlaceTurret)
+			if (canPlaceTurret && mMoney >= mTurretCost)
 			{
 				mAllTurrets.emplace_back(this, x, y);
+				mMoney -= mTurretCost;
 			}
 		}
 	}
@@ -102,6 +112,7 @@ void GameManager::DestroyBulletAndEnemies()
 				}
 				else if (mAllEnemies[enemy]->mLives <= 0)
 				{
+					mMoney += 5;
 					mSpawner.SetEnemyKilled(1);
 					mAllEnemies[enemy].reset();
 				}
@@ -120,6 +131,16 @@ void GameManager::DestroyBulletAndEnemies()
 
 void GameManager::Draw()
 {
+	//Draw rectangle with all game info (wave, money etc.)
+	DrawRectangle(0, 720, GetScreenWidth(), GetScreenHeight() - 720, {113, 137, 137, 255});
+	DrawText(TextFormat("WAVE : %d", mSpawner.GetCurrentWave()),
+		GetScreenWidth() / 2 - MeasureText(TextFormat("WAVE : %d", mSpawner.GetCurrentWave()), 40) / 2,
+		785, 40, WHITE);
+	DrawText(TextFormat("NEXT wave in : %.2f", mSpawner.GetCurrentTimeBeforeWave()),
+		GetScreenWidth() - MeasureText(TextFormat("NEXT wave in : %.2f", mSpawner.GetCurrentTimeBeforeWave()), 30) - 30,
+		785, 30, WHITE);
+	DrawText(TextFormat("MONEY : %d", mMoney), 30, 785, 40, WHITE);
+
 	//Draw Environment (tiles)
 	mEnvironment.Draw();
 
@@ -177,7 +198,14 @@ void GameManager::DrawTurretPlacement()
 
 		if (canPlaceTurret)
 		{
-			DrawTextureEx(mPosTurret, { mouseX * mEnvironment.mTileSize, mouseY * mEnvironment.mTileSize }, 0, 0.4f, GREEN);
+			if (mMoney >= mTurretCost)
+			{
+				DrawTextureEx(mPosTurret, { mouseX * mEnvironment.mTileSize, mouseY * mEnvironment.mTileSize }, 0, 0.4f, GREEN);
+			}
+			else if (mMoney < mTurretCost)
+			{
+				DrawTextureEx(mPosTurret, { mouseX * mEnvironment.mTileSize, mouseY * mEnvironment.mTileSize }, 0, 0.4f, RED);
+			}
 		}
 	}
 }
