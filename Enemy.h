@@ -6,7 +6,7 @@
 class Enemy
 {
 public:
-	Enemy(Environment& environment, std::vector<Vector2> path, float x, float y);
+	Enemy(Environment& environment, std::vector<Vector2> path, float x, float y, float lives);
 
 	void Update(float deltaTime);
 	void Draw();
@@ -15,6 +15,7 @@ public:
 
 	float mX = 0;
 	float mY = 0;
+	int mLives = 3;
 
 private:
 	const float mWidth = 128;

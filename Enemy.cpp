@@ -5,16 +5,14 @@
 #include <iostream>
 #include <cmath>
 
-Enemy::Enemy(Environment& environment, std::vector<Vector2> path, float x, float y)
-			: mEnvironment(environment), mPath(path)
+Enemy::Enemy(Environment& environment, std::vector<Vector2> path, float x, float y, float lives)
+	: mEnvironment(environment), mPath(path), mX(x), mY(y), mLives(lives);
 {
 	mTexture = LoadTexture("resources/towerDefense_tile247.png");
 
 	//initialze all variable
 	mIsAtCastle = false;
 	mAngle = 0;
-	mX = x;
-	mY = y;
 }
 
 void Enemy::Update(float deltaTime)
@@ -66,5 +64,5 @@ void Enemy::Draw()
 
 void Enemy::DrawDebug()
 {
-
+	DrawCircleLines(mX, mY, 20, RED);
 }

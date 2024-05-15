@@ -2,10 +2,12 @@
 
 #include "raylib.h"
 
+class GameManager;
+
 class Bullet
 {
 public:
-	Bullet(float x, float y, float angle);
+	Bullet(GameManager* gameManager, float x, float y, float angle);
 
 	void Update(float deltaTime);
 	void Draw();
@@ -17,6 +19,8 @@ private:
 	Texture2D mTexture;
 
 	float mAngle = 3023023;
-	float mSpeed = 400.0f;
+	float mSpeed = 450.0f;
+
+	GameManager* mGameManager;
 };
 

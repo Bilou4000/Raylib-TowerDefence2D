@@ -19,11 +19,13 @@ void Turret::Update(float deltaTime)
 {
 	std::shared_ptr<Enemy> enemy = mEnemy.lock();
 
+	//if no enemy in range -> search for new enemy
 	if (enemy == nullptr || Vector2Distance({ enemy->mX, enemy->mY }, { mX + mEnvironment.mTileSize / 2, mY + mEnvironment.mTileSize / 2 }) > mRange)
 	{
 		FindEnemy();
 	}
 
+	//if enemy in range -> shoot
 	if (enemy != nullptr)
 	{
 		mAngle = atan2(enemy->mY - (mY + mEnvironment.mTileSize / 2), enemy->mX - (mX + mEnvironment.mTileSize / 2));
@@ -47,18 +49,20 @@ void Turret::Draw()
 	DrawTexturePro(mTexture, source, dest, origin, mAngle * RAD2DEG, WHITE);
 
 	//debug
-	DrawCircleLines(mX + mEnvironment.mTileSize / 2, mY + mEnvironment.mTileSize / 2, mRange, RED);
+	//DrawCircleLines(mX + mEnvironment.mTileSize / 2, mY + mEnvironment.mTileSize / 2, mRange, RED);
 }
 
+//Find if enemy in range
 void Turret::FindEnemy()
 {
 	std::vector<std::shared_ptr<Enemy>>& allEnemies = mGameManager->GetAllEnemies();
 
 	mEnemy.reset();
 
-	for (std::shared_ptr<Enemy> enemy : allEnemies)
+	for (std::shared_ptr<Enemy>& enemy : allEnemies)
 	{
-		if (Vector2Distance({ enemy->mX, enemy->mY }, { mX + mEnvironment.mTileSize / 2, mY + mEnvironment.mTileSize / 2 }) < mRange)
+		if (enemy != nullptr &&
+			Vector2Distance({ enemy->mX, enemy->mY }, { mX + mEnvironment.mTileSize / 2, mY + mEnvironment.mTileSize / 2 }) < mRange)
 		{
 			mEnemy = enemy;
 			return;

@@ -23,13 +23,19 @@ bool GameManager::Update(float deltaTime)
 	//enemies update
 	for (std::shared_ptr<Enemy>& enemy : mAllEnemies)
 	{
-		enemy->Update(deltaTime);
+		if (enemy != nullptr)
+		{
+			enemy->Update(deltaTime);
+		}
 	}
 
 	//bullets update
-	for (Bullet& bullet : mAllBullets)
+	for (std::shared_ptr<Bullet>& bullet : mAllBullets)
 	{
-		bullet.Update(deltaTime);
+		if (bullet != nullptr)
+		{
+			bullet->Update(deltaTime);
+		}
 	}
 
 	mSpawner.Update(deltaTime);
@@ -65,6 +71,30 @@ bool GameManager::Update(float deltaTime)
 		}
 	}
 
+	//destroy bullets and enemies
+	for (int bullet = 0; bullet < mAllBullets.size(); bullet++)
+	{
+		for (int enemy = 0; enemy < mAllEnemies.size(); enemy++)
+		{
+			//destroy bullet if it touches an enemy
+			if (mAllEnemies[enemy] != nullptr && mAllBullets[bullet] != nullptr &&
+				CheckCollisionCircles({ mAllBullets[bullet]->mX, mAllBullets[bullet]->mY}, 8, {mAllEnemies[enemy]->mX, mAllEnemies[enemy]->mY}, 20))
+			{
+				//mAllEnemies[enemy].reset();
+				mAllBullets[bullet].reset();
+			}
+		}
+
+		//destroy bullet if it gets out of screen
+		if (mAllBullets[bullet] != nullptr && (mAllBullets[bullet]->mX < 0 || mAllBullets[bullet]->mY < 0
+			|| mAllBullets[bullet]->mX > GetScreenWidth() || mAllBullets[bullet]->mY > GetScreenHeight()))
+		{
+			mAllBullets[bullet].reset();
+			printf("isdestroyed\n");
+		}
+	}
+	
+
 	return false;
 }
 
@@ -84,9 +114,12 @@ void GameManager::Draw()
 	}
 
 	//Draw Enemies
-	for (std::shared_ptr<Enemy> enemy : mAllEnemies)
+	for (std::shared_ptr<Enemy>& enemy : mAllEnemies)
 	{
-		enemy->Draw();
+		if (enemy != nullptr)
+		{
+			enemy->Draw();
+		}
 	}
 
 	//Draw all turrets
@@ -96,22 +129,23 @@ void GameManager::Draw()
 	}
 
 	//Draw all bullets
-	for (Bullet& bullet : mAllBullets)
+	for (std::shared_ptr<Bullet>& bullet : mAllBullets)
 	{
-		bullet.Draw();
+		if (bullet != nullptr)
+		{
+			bullet->Draw();
+		}
 	}
 }
 
 void GameManager::SpawnEnemy(float x, float y)
 {
 	mAllEnemies.push_back(std::make_shared<Enemy>(mEnvironment, mMainPath, x, y));
-
-	//mAllEnemies.emplace_back(mEnvironment, mMainPath, x, y);
 }
 
 void GameManager::SpawnBullet(float x, float y, float angle)
 {
-	mAllBullets.emplace_back(x, y, angle);
+	mAllBullets.push_back(std::make_shared<Bullet>(this, x, y, angle));
 }
 
 std::vector<std::shared_ptr<Enemy>>& GameManager::GetAllEnemies()

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "raylib.h"
+
 #include "Turret.h"
 #include "Spawner.h"
 #include "Bullet.h"
@@ -24,7 +25,7 @@ private:
 	Environment mEnvironment {};
 	Spawner mSpawner{this, 50, 150 };
 
-	std::vector<Bullet> mAllBullets{};
+	std::vector<std::shared_ptr<Bullet>> mAllBullets{};
 	std::vector<Turret> mAllTurrets{};
 	std::vector<std::shared_ptr<Enemy>> mAllEnemies{};
 
