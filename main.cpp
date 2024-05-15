@@ -18,6 +18,7 @@ int screenWidth = 1280;
 int screenHeight = 850; //720
 
 bool ending = false;
+int waveCount = 0;
 
 //Function
 void Load();
@@ -80,6 +81,7 @@ void Update()
             //UpdateMusicStream(mainMusic);
 
             ending = gameManager.Update(deltaTime);
+            waveCount = gameManager.GetWavesCount();
 
             if (ending)
             {
@@ -135,6 +137,9 @@ void Draw()
         case ENDING:
         {
             DrawText("GAME OVER", (GetScreenWidth() / 2) - (MeasureText("GAME OVER", 150) / 2), 100, 150, RED);
+
+            DrawText("WAVE", (GetScreenWidth() / 2) - (MeasureText("WAVE", 100) / 2), 300, 100, ORANGE);
+            DrawText(TextFormat("%i", waveCount), (GetScreenWidth() / 2) - (MeasureText(TextFormat("%i", waveCount), 75) / 2), 400, 75, BLACK);
 
             DrawText("Press R to PLAY AGAIN", (GetScreenWidth() / 2) - (MeasureText("Press R to PLAY AGAIN", 40) / 2), 530, 40, GRAY);
             DrawText("Or Press M to go back to MENU", (GetScreenWidth() / 2) - (MeasureText("Or Press M to go back to MENU", 40) / 2), 620, 40, GRAY);

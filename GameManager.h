@@ -25,7 +25,10 @@ public:
 
 	void ResetGame();
 
+	int GetWavesCount();
+
 	std::vector<std::shared_ptr<Enemy>>& GetAllEnemies();
+
 	int mEnemyCount = 0;
 
 private:

@@ -272,6 +272,11 @@ void GameManager::ResetGame()
 	mSpawner.ResetSpawner();
 }
 
+int GameManager::GetWavesCount()
+{
+	return mSpawner.GetCurrentWave();
+}
+
 std::vector<std::shared_ptr<Enemy>>& GameManager::GetAllEnemies()
 {
 	return mAllEnemies;
