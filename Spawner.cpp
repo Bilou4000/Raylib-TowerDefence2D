@@ -14,6 +14,7 @@ void Spawner::Update(float deltaTime)
 
 	if (mCurrentSpawnTime <= 0 && mEnemy > 0)
 	{
+		mSpawnTime = 1.0f;
 		mIsWaitingForWave = false;
 
 		//spawn enemy
@@ -21,16 +22,6 @@ void Spawner::Update(float deltaTime)
 		mEnemy--;
 
 		mCurrentSpawnTime += mSpawnTime;
-	}
-
-	//new wave
-	if (mEnemyKilled >= mEnemyToSpawn)
-	{
-		NewWave();
-	}
-	else if (mEnemyKilled < mEnemyToSpawn)
-	{
-		mSpawnTime = 1.0f;
 	}
 }
 
@@ -40,29 +31,18 @@ void Spawner::NewWave()
 	mSpawnTime = mTimeBetweenWave;
 	mCurrentSpawnTime = mSpawnTime;
 
-	mWaveCount++;
-
-	mEnemyKilled = 0;
 	mEnemyToSpawn++;
 	mEnemy = mEnemyToSpawn;
 	mGameManager->mEnemyCount = mEnemyToSpawn;
 	mGameManager->GetAllEnemies().clear();
 }
 
-void Spawner::SetEnemyKilled(int count)
-{
-	mEnemyKilled += count;
-}
 
 int Spawner::GetRemainingEnemies()
 {
 	return mEnemy;
 }
 
-int Spawner::GetCurrentWave()
-{
-	return mWaveCount;
-}
 
 float Spawner::GetCurrentTimeBeforeWave()
 {
@@ -78,10 +58,8 @@ void Spawner::ResetSpawner()
 {
 	mIsWaitingForWave = true;
 
-	mWaveCount = mStartWaveCount;
 	mEnemyToSpawn = mStartEnemyToSpawn;
 	mEnemy = mEnemyToSpawn;
-	mEnemyKilled = 0;
 
 	mGameManager->mEnemyCount = mEnemyToSpawn;
 }

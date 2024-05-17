@@ -36,6 +36,7 @@ private:
 	const int mEnemyMoney = 5;
 	const int mStartCastleLife = 5;
 	const int mStartMoney = 60;
+	const int mStartWaveCount = 1;
 
 	Texture2D mPosTurret;
 	Texture2D mCastleUp;
@@ -64,5 +65,6 @@ private:
 
 	int mMoney = mStartMoney;
 	int mCastleLife = mStartCastleLife;
+	int mWaveCount = mStartWaveCount;
 };
 

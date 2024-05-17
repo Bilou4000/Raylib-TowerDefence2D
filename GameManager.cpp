@@ -32,7 +32,7 @@ bool GameManager::Update(float deltaTime)
 			if (enemy->GetIfAtCaslte())
 			{
 				mCastleLife--;
-				mSpawner.SetEnemyKilled(1);
+				mEnemyCount--;
 				enemy.reset();
 			}
 		}
@@ -56,12 +56,16 @@ bool GameManager::Update(float deltaTime)
 	//destroy bullets and enemies
 	DestroyBulletAndEnemies();
 
+	if (mEnemyCount <= 0)
+	{
+		mSpawner.NewWave();
+		mWaveCount++;
+	}
+
 	if (mCastleLife <= 0)
 	{
 		return true;
 	}
-
-	printf("%i\n", mEnemyCount);
 
 	return false;
 }
@@ -122,11 +126,13 @@ void GameManager::DestroyBulletAndEnemies()
 				{
 					mEnemyCount--;
 					mMoney += mEnemyMoney;
-					mSpawner.SetEnemyKilled(1);
+					//mSpawner.SetEnemyKilled(1);
 					mAllEnemies[enemy].reset();
 				}
 			}
 		}
+
+		printf("%i\n", mEnemyCount);
 
 		//destroy bullet if it gets out of screen
 		if (mAllBullets[bullet] != nullptr && (mAllBullets[bullet]->mX < 0 || mAllBullets[bullet]->mY < 0
@@ -143,8 +149,8 @@ void GameManager::Draw()
 	//Draw rectangle with all game info (wave, money etc.)
 	DrawRectangle(0, 720, GetScreenWidth(), GetScreenHeight() - 720, {113, 137, 137, 255});
 	DrawText(TextFormat("Money : %d", mMoney), 30, 785, 40, WHITE);
-	DrawText(TextFormat("WAVE : %d", mSpawner.GetCurrentWave()),
-		GetScreenWidth() / 2 - MeasureText(TextFormat("WAVE : %d", mSpawner.GetCurrentWave()), 50) / 2,
+	DrawText(TextFormat("WAVE : %d", mWaveCount),
+		GetScreenWidth() / 2 - MeasureText(TextFormat("WAVE : %d", mWaveCount), 50) / 2,
 		785, 50, WHITE);
 
 	//draw enemies count
@@ -166,6 +172,8 @@ void GameManager::Draw()
 
 	//Draw Environment (tiles)
 	mEnvironment.Draw();
+
+	if(mEnemyCount)
 
 	//Draw Castle;
 	DrawTextureEx(mCastleDown, { 1175, 570 }, 0, 0.8f, WHITE);
@@ -262,6 +270,7 @@ void GameManager::SpawnBullet(float x, float y, float angle)
 void GameManager::ResetGame()
 {
 	mCastleLife = mStartCastleLife;
+	mWaveCount = mStartWaveCount;
 	mMoney = mStartMoney;
 	mEnemyCount = 0;
 
@@ -274,7 +283,7 @@ void GameManager::ResetGame()
 
 int GameManager::GetWavesCount()
 {
-	return mSpawner.GetCurrentWave();
+	return mWaveCount;
 }
 
 std::vector<std::shared_ptr<Enemy>>& GameManager::GetAllEnemies()
