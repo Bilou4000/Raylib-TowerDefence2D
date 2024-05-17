@@ -12,6 +12,16 @@ Environment::Environment()
 	tileRoad.mColor = WHITE;
 	tileRoad.mIsRoad = true;
 
+	//spawn vertical
+	TileData& tileSpawnVertical = mTilesData[(int) TilesType::SPAWN_VERTICAL];
+	tileSpawnVertical.mColor = WHITE;
+	tileSpawnVertical.mIsRoad = true;
+
+	//spawn horizontal
+	TileData& tileSpawnHorizontal = mTilesData[(int) TilesType::SPAWN_HORIZONTAL];
+	tileSpawnHorizontal.mColor = WHITE;
+	tileSpawnHorizontal.mIsRoad = true;
+
 	//add all created types to mTilesData
 	for (int i = 0; i < (int) TilesType::MAX_COUNT; i++)
 	{
@@ -28,11 +38,17 @@ void Environment::Init()
 
 	TileData& tileRoad = mTilesData[(int) TilesType::ROAD];
 	tileRoad.ImageTexture = LoadTexture("resources/road/towerDefense_tile159.png");
+
+	TileData& tileSpawnVertical = mTilesData[(int) TilesType::SPAWN_VERTICAL];
+	tileSpawnVertical.ImageTexture = LoadTexture("resources/towerDefense_tile178.png");
+
+	TileData& tileSpawnHorizontal = mTilesData[(int) TilesType::SPAWN_HORIZONTAL];
+	tileSpawnHorizontal.ImageTexture = LoadTexture("resources/towerDefense_tile224.png");
 }
 
 void Environment::Draw()
 {
-	//Draw all of my tiles that are not obstacle
+	//Draw all tiles
 	for (int y = 0; y < mTilesY; y++)
 	{
 		for (int x = 0; x < mTilesX; x++)
