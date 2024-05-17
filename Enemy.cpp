@@ -28,6 +28,7 @@ void Enemy::Update(float deltaTime)
 		y = mY;
 		mIsAtCastle = true;
 		printf("ATTACK\n");
+
 	}
 	else
 	{
