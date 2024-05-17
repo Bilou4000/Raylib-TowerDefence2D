@@ -67,12 +67,6 @@ bool GameManager::Update(float deltaTime)
 		ChooseSpawner();
 	}
 
-	//**********************************************************************************************************
-	//if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-	//{
-	//	printf("%i, %i\n", GetMouseX(), GetMouseY());
-	//}
-
 	if (mCastleLife <= 0)
 	{
 		return true;
@@ -156,7 +150,6 @@ void GameManager::DestroyBulletAndEnemies()
 void GameManager::ChooseSpawner()
 {
 	int randomSpawn = rand() % 3;
-	printf("%i\n", randomSpawn);
 
 	if (randomSpawn == 1)
 	{
