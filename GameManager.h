@@ -19,6 +19,7 @@ public:
 
 	void CreateNewTurret();
 	void DestroyBulletAndEnemies();
+	void ChooseSpawner();
 
 	void SpawnEnemy(float x, float y);
 	void SpawnBullet(float x, float y, float angle);
@@ -39,17 +40,16 @@ private:
 	const int mStartWaveCount = 1;
 	const int mToAddSpeed = 10.0f;
 
+	const Vector2 mPosMainSpawn{ 50, 150 };
+	const Vector2 mPosSecondSpawn { 500, 20 };
+
 	Texture2D mPosTurret;
 	Texture2D mCastleUp;
 	Texture2D mCastleDown;
 	Environment mEnvironment {};
 	Spawner mSpawner{this, 50, 150 };
 
-	std::vector<std::shared_ptr<Bullet>> mAllBullets{};
-	std::vector<Turret> mAllTurrets{};
-	std::vector<std::shared_ptr<Enemy>> mAllEnemies{};
-
-	std::vector<Vector2> mMainPath {
+	const std::vector<Vector2> mMainPath {
 		{ 200, 154 },
 		{ 200, 606 },
 		{ 400, 606 },
@@ -63,6 +63,23 @@ private:
 		{ 1227, 604 },
 		{ 1270, 604 },
 	};
+
+	const std::vector<Vector2> mSecondPath {
+		{ 500, 300 },
+		{ 605, 300 },
+		{ 605, 600 },
+		{ 850, 600 },
+		{ 850, 155 },
+		{ 1100, 155 },
+		{ 1100, 604 },
+		{ 1227, 604 },
+		{ 1270, 604 },
+	};
+
+	std::vector<Vector2> mCurrentPath = mMainPath;
+	std::vector<std::shared_ptr<Bullet>> mAllBullets {};
+	std::vector<std::shared_ptr<Enemy>> mAllEnemies {};
+	std::vector<Turret> mAllTurrets {};
 
 	int mMoney = mStartMoney;
 	int mCastleLife = mStartCastleLife;

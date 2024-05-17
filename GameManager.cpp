@@ -4,6 +4,8 @@
 
 void GameManager::Init()
 {
+	srand(time(NULL));
+
 	//initialize environment
     mEnvironment.Init();
 
@@ -61,7 +63,15 @@ bool GameManager::Update(float deltaTime)
 		mSpawner.NewWave();
 		mWaveCount++;
 		mCurrentToAddSpeed += mToAddSpeed;
+
+		ChooseSpawner();
 	}
+
+	//**********************************************************************************************************
+	//if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
+	//{
+	//	printf("%i, %i\n", GetMouseX(), GetMouseY());
+	//}
 
 	if (mCastleLife <= 0)
 	{
@@ -143,6 +153,25 @@ void GameManager::DestroyBulletAndEnemies()
 	}
 }
 
+void GameManager::ChooseSpawner()
+{
+	int randomSpawn = rand() % 3;
+	printf("%i\n", randomSpawn);
+
+	if (randomSpawn == 1)
+	{
+		mSpawner.mX = mPosMainSpawn.x;
+		mSpawner.mY = mPosMainSpawn.y;
+		mCurrentPath = mMainPath;
+	}
+	else if (randomSpawn == 2)
+	{
+		mSpawner.mX = mPosSecondSpawn.x;
+		mSpawner.mY = mPosSecondSpawn.y;
+		mCurrentPath = mSecondPath;
+	}
+}
+
 void GameManager::Draw()
 {
 	//Draw rectangle with all game info (wave, money etc.)
@@ -171,8 +200,6 @@ void GameManager::Draw()
 
 	//Draw Environment (tiles)
 	mEnvironment.Draw();
-
-	if(mEnemyCount)
 
 	//Draw Castle;
 	DrawTextureEx(mCastleDown, { 1175, 570 }, 0, 0.8f, WHITE);
@@ -262,7 +289,7 @@ void GameManager::DrawTurretPlacement()
 
 void GameManager::SpawnEnemy(float x, float y)
 {
-	mAllEnemies.push_back(std::make_shared<Enemy>(mEnvironment, mMainPath, x, y, 3, mCurrentToAddSpeed));
+	mAllEnemies.push_back(std::make_shared<Enemy>(mEnvironment, mCurrentPath, x, y, 3, mCurrentToAddSpeed));
 }
 
 void GameManager::SpawnBullet(float x, float y, float angle)
