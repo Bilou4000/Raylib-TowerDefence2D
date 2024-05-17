@@ -1,15 +1,15 @@
 #include "Enemy.h"
 
-Enemy::Enemy(Environment& environment, std::vector<Vector2> path, float x, float y, float lives)
+Enemy::Enemy(Environment& environment, std::vector<Vector2> path, float x, float y, float lives, float speed)
 	: mEnvironment(environment), mPath(path), mX(x), mY(y), mLives(lives)
 {
 	mTexture = LoadTexture("resources/towerDefense_tile247.png");
+	mSpeed += speed;
 
 	//initialze all variable
 	mIsAtCastle = false;
 	mAngle = 0;
 	mMaxLives = mLives;
-	mSpeed = mMaxSpeed;
 }
 
 void Enemy::Update(float deltaTime)

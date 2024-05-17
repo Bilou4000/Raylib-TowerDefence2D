@@ -60,6 +60,7 @@ bool GameManager::Update(float deltaTime)
 	{
 		mSpawner.NewWave();
 		mWaveCount++;
+		mCurrentToAddSpeed += mToAddSpeed;
 	}
 
 	if (mCastleLife <= 0)
@@ -107,6 +108,7 @@ void GameManager::CreateNewTurret()
 
 void GameManager::DestroyBulletAndEnemies()
 {
+	//destroy bullt and damage or kill enemies
 	for (int bullet = 0; bullet < mAllBullets.size(); bullet++)
 	{
 		for (int enemy = 0; enemy < mAllEnemies.size(); enemy++)
@@ -126,13 +128,10 @@ void GameManager::DestroyBulletAndEnemies()
 				{
 					mEnemyCount--;
 					mMoney += mEnemyMoney;
-					//mSpawner.SetEnemyKilled(1);
 					mAllEnemies[enemy].reset();
 				}
 			}
 		}
-
-		printf("%i\n", mEnemyCount);
 
 		//destroy bullet if it gets out of screen
 		if (mAllBullets[bullet] != nullptr && (mAllBullets[bullet]->mX < 0 || mAllBullets[bullet]->mY < 0
@@ -234,6 +233,7 @@ void GameManager::DrawTurretPlacement()
 
 		bool canPlaceTurret = true;
 
+		//if turret already there -> don't draw placement
 		for (Turret& turret : mAllTurrets)
 		{
 			if (turret.mX == x && turret.mY == y)
@@ -243,12 +243,15 @@ void GameManager::DrawTurretPlacement()
 			}
 		}
 
+		//if you are somewhere where you can place turret -> check money
 		if (canPlaceTurret)
 		{
+			//if you have enough money -> draw in green
 			if (mMoney >= mTurretCost)
 			{
 				DrawTextureEx(mPosTurret, { mouseX * mEnvironment.mTileSize, mouseY * mEnvironment.mTileSize }, 0, 0.4f, GREEN);
 			}
+			//if not -> draw in red
 			else if (mMoney < mTurretCost)
 			{
 				DrawTextureEx(mPosTurret, { mouseX * mEnvironment.mTileSize, mouseY * mEnvironment.mTileSize }, 0, 0.4f, RED);
@@ -259,7 +262,7 @@ void GameManager::DrawTurretPlacement()
 
 void GameManager::SpawnEnemy(float x, float y)
 {
-	mAllEnemies.push_back(std::make_shared<Enemy>(mEnvironment, mMainPath, x, y, 3));
+	mAllEnemies.push_back(std::make_shared<Enemy>(mEnvironment, mMainPath, x, y, 3, mCurrentToAddSpeed));
 }
 
 void GameManager::SpawnBullet(float x, float y, float angle)
@@ -269,6 +272,7 @@ void GameManager::SpawnBullet(float x, float y, float angle)
 
 void GameManager::ResetGame()
 {
+	mCurrentToAddSpeed = mToAddSpeed;
 	mCastleLife = mStartCastleLife;
 	mWaveCount = mStartWaveCount;
 	mMoney = mStartMoney;

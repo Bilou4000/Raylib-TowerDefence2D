@@ -10,7 +10,7 @@
 class Enemy
 {
 public:
-	Enemy(Environment& environment, std::vector<Vector2> path, float x, float y, float lives);
+	Enemy(Environment& environment, std::vector<Vector2> path, float x, float y, float lives, float speed);
 
 	void Update(float deltaTime);
 	void Draw();
@@ -20,14 +20,12 @@ public:
 
 	float mX = 0;
 	float mY = 0;
-	float mSpeed = 0;
+	float mSpeed = 100;
 	int mLives = 3;
 
 private:
 	const float mWidth = 128;
 	const float mHeight = 128;
-
-	const float mMaxSpeed = 100.0f;
 	const float mMinDistance = 5.0f;
 
 	float mAngle = 0;
