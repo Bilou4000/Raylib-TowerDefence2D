@@ -51,9 +51,9 @@ void Load()
     InitAudioDevice();
     gameManager.Init();
 
-    startMusic = LoadMusicStream("resources/ForzaHorizon.mp3");
-    mainMusic = LoadMusicStream("resources/Odesza.mp3");
-    endMusic = LoadMusicStream("resources/Pyre.mp3");
+    startMusic = LoadMusicStream("resources/Albedo.mp3");
+    mainMusic = LoadMusicStream("resources/PLvsAA.mp3");
+    endMusic = LoadMusicStream("resources/Bastion.mp3");
 }
 
 void Update()
@@ -66,8 +66,8 @@ void Update()
         {
             StopMusicStream(endMusic);
 
-            //PlayMusicStream(startMusic);
-            //UpdateMusicStream(startMusic);
+            PlayMusicStream(startMusic);
+            UpdateMusicStream(startMusic);
 
             if (IsKeyPressed(KEY_ENTER))
             {
@@ -77,8 +77,10 @@ void Update()
         break;
         case GAMEPLAY:
         {
-            //PlayMusicStream(mainMusic);
-            //UpdateMusicStream(mainMusic);
+            PlayMusicStream(mainMusic);
+            UpdateMusicStream(mainMusic);
+
+            StopMusicStream(endMusic);
 
             ending = gameManager.Update(deltaTime);
             waveCount = gameManager.GetWavesCount();
@@ -93,8 +95,8 @@ void Update()
         {
             StopMusicStream(mainMusic);
 
-            //PlayMusicStream(endMusic);
-            //UpdateMusicStream(endMusic);
+            PlayMusicStream(endMusic);
+            UpdateMusicStream(endMusic);
 
             gameManager.ResetGame();
 
@@ -124,9 +126,6 @@ void Draw()
         {
             DrawText("Tower Defence 2D", (GetScreenWidth() / 2) - (MeasureText("Tower Defence 2D", 100) / 2), GetScreenHeight() / 3, 100, RED);
             DrawText("Press ENTER to PLAY", (GetScreenWidth() / 2) - (MeasureText("Press ENTER to PLAY", 50) / 2), 400, 50, GRAY);
-
-            //DrawTextureEx(firstCarTexture, { 200, 100 }, 45, 2, WHITE);
-            //DrawTextureEx(secondCarTexture, { 1000, 400 }, -20, 1.5f, WHITE);
         }
         break;
         case GAMEPLAY:
